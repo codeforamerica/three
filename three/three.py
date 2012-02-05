@@ -41,6 +41,10 @@ class Three(object):
         self.jurisdiction = keywords['jurisdiction']
         self.proxy = keywords['proxy']
 
+    def reset(self):
+        """Reset the class back to the original keywords and values."""
+        self.configure()
+
     def _create_path(self, *args):
         """Create URL path for endpoint and args."""
         if not self.endpoint.endswith('/'):
@@ -48,10 +52,6 @@ class Three(object):
         args = filter(None, args)
         path = self.endpoint + '/'.join(args) + '.%s' % (self.format)
         return path
-
-    def reset(self):
-        """Reset the class back to the original keywords and values."""
-        self.configure()
 
     def convert(self, content):
         """Convert content to Python data structures."""
@@ -69,11 +69,27 @@ class Three(object):
         return data
 
     def discovery(self, url=None):
+        """
+        Retrieve the standard discovery file that provides routing
+        information.
+
+        >>> Three().discovery()
+        {'discovery': 'data'}
+        """
         url = self._create_path('discovery')
         data = self.get(url)
         return data
 
     def services(self, code=None):
+        """
+        Retrieve information about available services. You can also enter a
+        specific service code argument.
+
+        >>> Three().services()
+        {'all': {'service_code': 'data'}}
+        >>> Three().services('033')
+        {'033': {'service_code': 'data'}}
+        """
         url = self._create_path('services', code)
         data = self.get(url)
         return data

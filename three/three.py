@@ -18,6 +18,8 @@ class Three(object):
         if endpoint:
             if not endpoint.startswith('http'):
                 endpoint = 'https://' + endpoint
+            if not endpoint.endswith('/'):
+                endpoint += '/'
             keywords['endpoint'] = endpoint
         self._keywords = keywords
         self.configure()
@@ -49,8 +51,6 @@ class Three(object):
 
     def _create_path(self, *args):
         """Create URL path for endpoint and args."""
-        if not self.endpoint.endswith('/'):
-            self.endpoint += '/'
         args = filter(None, args)
         path = self.endpoint + '/'.join(args) + '.%s' % (self.format)
         return path

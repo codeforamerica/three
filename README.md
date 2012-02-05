@@ -36,7 +36,7 @@ By default, `Three` will configure a URL without a specified schema to
 use `HTTPS`.
 
     >>> t = Three('api.city.gov')
-    >>> t.endpoint == 'https://api.city.gov'
+    >>> t.endpoint == 'https://api.city.gov/'
     True
 
 

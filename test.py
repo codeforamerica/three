@@ -24,7 +24,7 @@ class ThreeInit(unittest.TestCase):
 
     def test_first_argument_is_endpoint(self):
         t = Three('api.city.gov')
-        self.assertEqual(t.endpoint, 'https://api.city.gov')
+        self.assertEqual(t.endpoint, 'https://api.city.gov/')
 
     def test_json_is_default_format(self):
         t = Three()

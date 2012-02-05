@@ -93,3 +93,11 @@ class Three(object):
         url = self._create_path('services', code)
         data = self.get(url)
         return data
+
+    def requests(self, code=None, **kwargs):
+        """Retrieve open requests."""
+        if code:
+            kwargs['service_code'] = code
+        url = self._create_path('requests', **kwargs)
+        data = self.get(url)
+        return data

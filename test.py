@@ -23,8 +23,12 @@ class ThreeInit(unittest.TestCase):
         self.assertEqual(Three().format, 'json')
 
     def test_first_argument_is_endpoint(self):
-        t = Three('api.sf311.gov')
-        self.assertEqual(t.endpoint, 'api.sf311.gov')
+        t = Three('api.city.gov')
+        self.assertEqual(t.endpoint, 'api.city.gov')
+
+    def test_json_is_default_format(self):
+        t = Three()
+        self.assertEqual(t.format, 'json')
 
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''
@@ -33,10 +37,19 @@ class ThreeInit(unittest.TestCase):
 class ThreeServices(unittest.TestCase):
 
     def test_empty_services_call(self):
-        t = Three('api.sf311.gov')
+        t = Three('api.city.gov')
         t.get = Mock()
         t.services()
-        t.get.assert_called_with('api.sf311.gov/services.json')
+        t.get.assert_called_with('api.city.gov/services.json')
+
+
+class ThreeRequests(unittest.TestCase):
+
+    def test_empty_requests_call(self):
+        t = Three('api.city.gov')
+        t.get = Mock()
+        t.requests()
+        t.get.assert_called_with('api.city.gov/requests.json')
 
 
 if __name__ == '__main__':

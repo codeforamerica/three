@@ -9,7 +9,7 @@ except ImportError:
 
 
 setup(
-    name="requests",
+    name="three",
     version="0.1",
     author="Zach Williams",
     author_email="hey@zachwill.com",

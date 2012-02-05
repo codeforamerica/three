@@ -24,7 +24,7 @@ class ThreeInit(unittest.TestCase):
 
     def test_first_argument_is_endpoint(self):
         t = Three('api.city.gov')
-        self.assertEqual(t.endpoint, 'api.city.gov')
+        self.assertEqual(t.endpoint, 'https://api.city.gov')
 
     def test_json_is_default_format(self):
         t = Three()
@@ -42,7 +42,8 @@ class ThreeDiscovery(unittest.TestCase):
     def test_default_discovery_method(self):
         t = Three('api.city.gov')
         t.discovery()
-        req.get.assert_called_with('api.city.gov/discovery.json', params={})
+        expected = 'https://api.city.gov/discovery.json'
+        req.get.assert_called_with(expected, params={})
 
     def test_discovery_url_argument(self):
         t = Three('api.city.gov')
@@ -58,18 +59,21 @@ class ThreeServices(unittest.TestCase):
     def test_empty_services_call(self):
         t = Three('api.city.gov')
         t.services()
-        req.get.assert_called_with('api.city.gov/services.json', params={})
+        expected = 'https://api.city.gov/services.json'
+        req.get.assert_called_with(expected, params={})
 
     def test_specific_service_code(self):
         t = Three('api.city.gov')
         t.services('123')
-        req.get.assert_called_with('api.city.gov/services/123.json', params={})
+        expected = 'https://api.city.gov/services/123.json'
+        req.get.assert_called_with(expected, params={})
 
     def test_keyword_arguments_become_parameters(self):
         t = Three('api.city.gov')
         t.services('123', foo='bar')
-        kw = {'foo': 'bar'}
-        req.get.assert_called_with('api.city.gov/services/123.json', params=kw)
+        params = {'foo': 'bar'}
+        expected = 'https://api.city.gov/services/123.json'
+        req.get.assert_called_with(expected, params=params)
 
 
 class ThreeRequests(unittest.TestCase):
@@ -80,7 +84,8 @@ class ThreeRequests(unittest.TestCase):
     def test_empty_requests_call(self):
         t = Three('api.city.gov')
         t.requests()
-        req.get.assert_called_with('api.city.gov/requests.json', params={})
+        expected = 'https://api.city.gov/requests.json'
+        req.get.assert_called_with(expected, params={})
 
 
 if __name__ == '__main__':

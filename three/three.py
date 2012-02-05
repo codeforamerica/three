@@ -16,6 +16,8 @@ class Three(object):
         keywords = defaultdict(str)
         keywords.update(kwargs)
         if endpoint:
+            if not endpoint.startswith('http'):
+                endpoint = 'https://' + endpoint
             keywords['endpoint'] = endpoint
         self._keywords = keywords
         self.configure()
@@ -56,6 +58,7 @@ class Three(object):
     def get(self, *args, **kwargs):
         """Perform a get request."""
         url = self._create_path(*args)
+        # TODO: Still need to add on additional parameters.
         data = requests.get(url, params=kwargs).content
         return data
 

@@ -30,6 +30,16 @@ Otherwise, you can initialize the class with your API key and endpoint.
     >>> t = Three('api.city.gov', api_key='my_api_key')
 
 
+### HTTPS
+
+By default, `Three` will configure a URL without a specified schema to
+use `HTTPS`.
+
+    >>> t = Three('api.city.gov')
+    >>> t.endpoint == 'https://api.city.gov'
+    True
+
+
 ### Format
 
 The default format for the `Three` wrapper is `JSON` -- although not all

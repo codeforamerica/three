@@ -6,8 +6,8 @@ import os
 import unittest
 from mock import Mock
 
-from three import three
 from three import Three
+from three.three import requests as req
 
 
 class ThreeInit(unittest.TestCase):
@@ -36,20 +36,35 @@ class ThreeInit(unittest.TestCase):
 
 class ThreeServices(unittest.TestCase):
 
+    def setUp(self):
+        req.get = Mock()
+
     def test_empty_services_call(self):
         t = Three('api.city.gov')
-        t.get = Mock()
         t.services()
-        t.get.assert_called_with('api.city.gov/services.json')
+        req.get.assert_called_with('api.city.gov/services.json', params={})
+
+    def test_specific_service_code(self):
+        t = Three('api.city.gov')
+        t.services('123')
+        req.get.assert_called_with('api.city.gov/services/123.json', params={})
+
+    def test_keyword_arguments_become_parameters(self):
+        t = Three('api.city.gov')
+        t.services('123', foo='bar')
+        kw = {'foo': 'bar'}
+        req.get.assert_called_with('api.city.gov/services/123.json', params=kw)
 
 
 class ThreeRequests(unittest.TestCase):
 
+    def setUp(self):
+        req.get = Mock()
+
     def test_empty_requests_call(self):
         t = Three('api.city.gov')
-        t.get = Mock()
         t.requests()
-        t.get.assert_called_with('api.city.gov/requests.json')
+        req.get.assert_called_with('api.city.gov/requests.json', params={})
 
 
 if __name__ == '__main__':

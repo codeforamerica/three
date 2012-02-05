@@ -53,18 +53,9 @@ class Three(object):
         path = self.endpoint + '/'.join(args) + '.%s' % (self.format)
         return path
 
-    def convert(self, content):
-        """Convert content to Python data structures."""
-        if self.format == 'json':
-            data = json.loads(content)
-        else:
-            # XML2Dict the content?
-            data = content
-        return data
-
-    def get(self, path, **kwargs):
+    def get(self, *args, **kwargs):
         """Perform a get request."""
-        url = self._create_path(path)
+        url = self._create_path(*args)
         data = requests.get(url, params=kwargs).content
         return data
 
@@ -76,11 +67,10 @@ class Three(object):
         >>> Three().discovery()
         {'discovery': 'data'}
         """
-        url = self._create_path('discovery')
-        data = self.get(url)
+        data = self.get('discovery')
         return data
 
-    def services(self, code=None):
+    def services(self, code=None, **kwargs):
         """
         Retrieve information about available services. You can also enter a
         specific service code argument.
@@ -90,14 +80,21 @@ class Three(object):
         >>> Three().services('033')
         {'033': {'service_code': 'data'}}
         """
-        url = self._create_path('services', code)
-        data = self.get(url)
+        data = self.get('services', code, **kwargs)
         return data
 
     def requests(self, code=None, **kwargs):
         """Retrieve open requests."""
         if code:
             kwargs['service_code'] = code
-        url = self._create_path('requests', **kwargs)
-        data = self.get(url)
+        data = self.get('requests', **kwargs)
+        return data
+
+    def convert(self, content):
+        """Convert content to Python data structures."""
+        if self.format == 'json':
+            data = json.loads(content)
+        else:
+            # XML2Dict the content?
+            data = content
         return data

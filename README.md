@@ -56,7 +56,7 @@ use `XML` as your format of choice.
 ### Discovery
 
 In order to use the [Open311 service discovery](http://wiki.open311.org/Service_Discovery),
-simply envoke the `discovery` method.
+simply invoke the `discovery` method.
 
     >>> from three import Three
     >>> t = Three('api.city.gov')

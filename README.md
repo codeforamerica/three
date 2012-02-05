@@ -53,6 +53,12 @@ simply envoke the `discovery` method.
     >>> t.discovery()
     {'service': {'discovery': 'data'}}
 
+Sometimes, however, service discovery paths differ from service and
+request URL paths -- in which case you can pass the specified URL to the
+`discovery` method as an argument.
+
+    >>> t.discovery('http://another.path.gov/discovery.json')
+
 
 ### Services
 

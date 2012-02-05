@@ -34,6 +34,22 @@ class ThreeInit(unittest.TestCase):
         os.environ['OPEN311_API_KEY'] = ''
 
 
+class ThreeDiscovery(unittest.TestCase):
+
+    def setUp(self):
+        req.get = Mock()
+
+    def test_default_discovery_method(self):
+        t = Three('api.city.gov')
+        t.discovery()
+        req.get.assert_called_with('api.city.gov/discovery.json', params={})
+
+    def test_discovery_url_argument(self):
+        t = Three('api.city.gov')
+        t.discovery('http://testing.gov/discovery.json')
+        req.get.assert_called_with('http://testing.gov/discovery.json')
+
+
 class ThreeServices(unittest.TestCase):
 
     def setUp(self):

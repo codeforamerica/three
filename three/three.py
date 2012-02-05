@@ -67,7 +67,10 @@ class Three(object):
         >>> Three().discovery()
         {'discovery': 'data'}
         """
-        data = self.get('discovery')
+        if url:
+            data = requests.get(url).content
+        else:
+            data = self.get('discovery')
         return data
 
     def services(self, code=None, **kwargs):

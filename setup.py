@@ -20,6 +20,7 @@ setup(
     ],
     install_requires=[
         'mock',
+        'simplejson',
         'requests',
     ],
     license='MIT',

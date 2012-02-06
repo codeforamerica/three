@@ -99,10 +99,28 @@ class Three(object):
         return data
 
     def requests(self, code=None, **kwargs):
-        """Retrieve open requests."""
+        """
+        Retrieve open requests. You can also enter a specific service code
+        argument.
+
+        >>> Three('api.city.gov').requests()
+        {'all': {'requests': 'data'}}
+        >>> Three('api.city.gov').requests('123')
+        {'123': {'requests': 'data'}}
+        """
         if code:
             kwargs['service_code'] = code
         data = self.get('requests', **kwargs)
+        return data
+
+    def request(self, id, **kwargs):
+        """
+        Retrieve a specific request using its service code ID.
+
+        >>> Three('api.city.gov').request('12345')
+        {'request': {'service_code': {'12345': 'data'}}}
+        """
+        data = self.get('requests', id, **kwargs)
         return data
 
     def convert(self, content):

@@ -112,5 +112,17 @@ class ThreeRequests(unittest.TestCase):
         req.get.assert_called_with(expected, params=params)
 
 
+class ThreeRequest(unittest.TestCase):
+
+    def setUp(self):
+        req.get = Mock()
+
+    def test_getting_a_specific_request(self):
+        t = Three('api.city.gov')
+        t.request('12345')
+        expected = 'https://api.city.gov/requests/12345.json'
+        req.get.assert_called_with(expected, params={})
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -84,3 +84,22 @@ You can also specify a specific service code to get information about.
 
     >>> t.services('033')
     {'033': {'service_code': 'info'}}
+
+
+### Requests
+
+To see available request data, use the `requests` method.
+
+    >>> t = Three('api.city.gov')
+    >>> t.requests()
+    {'all': {'requests': 'data'}}
+
+You can also specify a specific service code.
+
+    >>> t.requests('123')
+    {'123': {'requests': 'data'}}
+
+Other parameters can also be passed as keyword arguments.
+
+    >>> t.requests('456', status='open')
+    {'456': {'open': {'requests': 'data'}}}

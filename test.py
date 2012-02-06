@@ -97,6 +97,13 @@ class ThreeRequests(unittest.TestCase):
         expected = 'https://api.city.gov/requests.json'
         req.get.assert_called_with(expected, params={})
 
+    def test_requests_call_with_service_code(self):
+        t = Three('api.city.gov')
+        t.requests('123')
+        params = {'service_code': '123'}
+        expected = 'https://api.city.gov/requests.json'
+        req.get.assert_called_with(expected, params=params)
+
 
 if __name__ == '__main__':
     unittest.main()

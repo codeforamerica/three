@@ -22,14 +22,6 @@ class Three(object):
         self._keywords = keywords
         self.configure()
 
-    def _configure_endpoint(self, endpoint):
-        """Configure the endpoint with a schema and end slash."""
-        if not endpoint.startswith('http'):
-            endpoint = 'https://' + endpoint
-        if not endpoint.endswith('/'):
-            endpoint += '/'
-        return endpoint
-
     def _global_api_key(self):
         """
         If a global Open311 API key is available as an environment variable,
@@ -53,6 +45,14 @@ class Three(object):
         self.format = keywords['format'] or 'json'
         self.jurisdiction = keywords['jurisdiction']
         self.proxy = keywords['proxy']
+
+    def _configure_endpoint(self, endpoint):
+        """Configure the endpoint with a schema and end slash."""
+        if not endpoint.startswith('http'):
+            endpoint = 'https://' + endpoint
+        if not endpoint.endswith('/'):
+            endpoint += '/'
+        return endpoint
 
     def reset(self):
         """Reset the class back to the original keywords and values."""

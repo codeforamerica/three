@@ -30,6 +30,16 @@ class ThreeInit(unittest.TestCase):
         t = Three()
         self.assertEqual(t.format, 'json')
 
+    def test_reset_method_reconfigures_defaults(self):
+        t = Three('foo.bar')
+        self.assertEqual(t.endpoint, 'https://foo.bar/')
+        t.configure(endpoint='bar.bar')
+        self.assertEqual(t.endpoint, 'https://bar.bar/')
+        t.configure(endpoint='http://baz.bar')
+        self.assertEqual(t.endpoint, 'http://baz.bar/')
+        t.reset()
+        self.assertEqual(t.endpoint, 'https://foo.bar/')
+
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''
 

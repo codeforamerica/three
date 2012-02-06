@@ -4,6 +4,7 @@ A new Python wrapper for interacting with the Open311 API.
 
 import os
 from collections import defaultdict
+from itertools import ifilter
 
 import requests
 import simplejson as json
@@ -16,13 +17,18 @@ class Three(object):
         keywords = defaultdict(str)
         keywords.update(kwargs)
         if endpoint:
-            if not endpoint.startswith('http'):
-                endpoint = 'https://' + endpoint
-            if not endpoint.endswith('/'):
-                endpoint += '/'
+            endpoint = self._configure_endpoint(endpoint)
             keywords['endpoint'] = endpoint
         self._keywords = keywords
         self.configure()
+
+    def _configure_endpoint(self, endpoint):
+        """Configure the endpoint with a schema and end slash."""
+        if not endpoint.startswith('http'):
+            endpoint = 'https://' + endpoint
+        if not endpoint.endswith('/'):
+            endpoint += '/'
+        return endpoint
 
     def _global_api_key(self):
         """
@@ -39,6 +45,9 @@ class Three(object):
         """Configure a previously initialized instance of the class."""
         keywords = self._keywords.copy()
         keywords.update(kwargs)
+        if 'endpoint' in kwargs:
+            endpoint = kwargs['endpoint']
+            keywords['endpoint'] = self._configure_endpoint(endpoint)
         self.api_key = keywords['api_key'] or self._global_api_key()
         self.endpoint = keywords['endpoint']
         self.format = keywords['format'] or 'json'
@@ -51,7 +60,7 @@ class Three(object):
 
     def _create_path(self, *args):
         """Create URL path for endpoint and args."""
-        args = filter(None, args)
+        args = ifilter(None, args)
         path = self.endpoint + '/'.join(args) + '.%s' % (self.format)
         return path
 

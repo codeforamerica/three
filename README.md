@@ -103,3 +103,13 @@ Other parameters can also be passed as keyword arguments.
 
     >>> t.requests('456', status='open')
     {'456': {'open': {'requests': 'data'}}}
+
+
+### Request
+
+If you're looking for information on a specific Open311 request (and you
+have it's service code ID), you can use the `request` method.
+
+    >>> t = Three('api.city.gov')
+    >>> t.request('12345')
+    {'request': {'service_code_id': {'12345': 'data'}}}

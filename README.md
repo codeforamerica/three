@@ -2,8 +2,9 @@ Three
 =====
 
 An updated [Open311 API](http://wiki.open311.org/GeoReport_v2) Python wrapper
-that was built to be as absolute user-friendly and easy-to-use as
-possible.
+that was built to be as absolute **user-friendly** and **easy-to-use as
+possible**. Many of the design decisions made will reflect these
+qualities.
 
 
 Installation

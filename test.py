@@ -124,5 +124,20 @@ class ThreeRequest(unittest.TestCase):
         req.get.assert_called_with(expected, params={})
 
 
+class ThreePost(unittest.TestCase):
+
+    def setUp(self):
+        req.post = Mock()
+
+    def test_a_default_post(self):
+        t = Three('api.city.gov', api_key='my_api_key')
+        t.post('123', name='Zach Williams', address='85 2nd Street')
+        params = {'first_name': 'Zach', 'last_name': 'Williams',
+                  'service_code': '123', 'address_string': '85 2nd Street',
+                  'api_key': 'my_api_key'}
+        expected = 'https://api.city.gov/requests.json'
+        req.post.assert_called_with(expected, params=params)
+
+
 if __name__ == '__main__':
     unittest.main()

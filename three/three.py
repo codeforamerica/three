@@ -38,6 +38,7 @@ class Three(object):
         keywords = self._keywords.copy()
         keywords.update(kwargs)
         if 'endpoint' in kwargs:
+            # Then we need to correctly format the endpoint.
             endpoint = kwargs['endpoint']
             keywords['endpoint'] = self._configure_endpoint(endpoint)
         self.api_key = keywords['api_key'] or self._global_api_key()
@@ -121,6 +122,28 @@ class Three(object):
         {'request': {'service_code': {'12345': 'data'}}}
         """
         data = self.get('requests', id, **kwargs)
+        return data
+
+    def post(self, code, **kwargs):
+        """
+        Post a new Open311 request.
+
+        >>> Three('api.city.gov').post('123', address='123 Any St',
+        ...                            name='Zach Williams', phone='555-5555')
+        {'successful': {'request': 'post'}}
+        """
+        if 'address' in kwargs:
+            address = kwargs.pop('address')
+            kwargs['address_string'] = address
+        if 'name' in kwargs:
+            first, last = kwargs.pop('name').split(' ')
+            kwargs['first_name'] = first
+            kwargs['last_name'] = last
+        if 'api_key' not in kwargs:
+            kwargs['api_key'] = self.api_key
+        kwargs['service_code'] = code
+        url = self._create_path('requests')
+        data = requests.post(url, params=kwargs).content
         return data
 
     def convert(self, content):

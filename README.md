@@ -113,3 +113,16 @@ have it's service code ID), you can use the `request` method.
     >>> t = Three('api.city.gov')
     >>> t.request('12345')
     {'request': {'service_code_id': {'12345': 'data'}}}
+
+
+### Post
+
+Sometimes you might need to programmatically create a new request, which
+is what the `post` method can be used for. **NOTE**: the Open311 spec
+states that all POST service requests [require a valid API
+key](http://wiki.open311.org/GeoReport_v2#POST_Service_Request).
+
+    >>> t = Three('api.city.gov', api_key='SECRET_KEY')
+    >>> t.post('123', name='Zach Williams', address='85 2nd St',
+    ...        description='New service code 123 request.')
+    {'new': {'request': 'created'}}

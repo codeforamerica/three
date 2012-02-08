@@ -22,13 +22,13 @@ class ThreeInit(unittest.TestCase):
     def test_default_format_is_json(self):
         self.assertEqual(Three().format, 'json')
 
+    def test_format_can_be_set_to_xml(self):
+        t = Three(format='xml')
+        self.assertEqual(t.format, 'xml')
+
     def test_first_argument_is_endpoint(self):
         t = Three('api.city.gov')
         self.assertEqual(t.endpoint, 'https://api.city.gov/')
-
-    def test_json_is_default_format(self):
-        t = Three()
-        self.assertEqual(t.format, 'json')
 
     def test_reset_method_reconfigures_defaults(self):
         t = Three('foo.bar')

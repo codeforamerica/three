@@ -44,7 +44,7 @@ use `HTTPS`.
 ### Format
 
 The default format for the `Three` wrapper is `JSON` -- although not all
-[Open311 implementation support it](http://wiki.open311.org/GeoReport_v2#Format_Support).
+[Open311 implementations support it](http://wiki.open311.org/GeoReport_v2#Format_Support).
 This is done mainly for easy-of-use (remember, that's the over-arching
 goal of the `Three` wrapper). You can, however, specifically request to
 use `XML` as your format of choice.

@@ -126,3 +126,14 @@ key](http://wiki.open311.org/GeoReport_v2#POST_Service_Request).
     >>> t.post('123', name='Zach Williams', address='85 2nd St',
     ...        description='New service code 123 request.')
     {'new': {'request': 'created'}}
+
+
+### Token
+
+Each service request ID can be tracked with a temporary token. If you
+need to find the service request ID and have the request's token, you
+can use the `token` method.
+
+    >>> t = Three('api.city.gov')
+    >>> t.token('12345')
+    {'service_request_id': {'for': {'token': '12345'}}}

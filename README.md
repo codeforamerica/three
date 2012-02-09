@@ -14,8 +14,8 @@ This is still a work in progress, but you can `git clone` this repo and
 run `python setup.py install` to check out the current progress.
 
 
-Usage
------
+Settings
+--------
 
 ### API Key
 
@@ -53,6 +53,9 @@ use `XML` as your format of choice.
     >>> t.format == 'xml'
     True
 
+
+Usage
+-----
 
 ### Discovery
 

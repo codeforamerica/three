@@ -146,6 +146,16 @@ class Three(object):
         data = requests.post(url, params=kwargs).content
         return data
 
+    def token(self, id, **kwargs):
+        """
+        Retrieve a service request ID from a token.
+
+        >>> Three('api.city.gov').token('12345')
+        {'service_request_id': {'for': {'token': '12345'}}}
+        """
+        data = self.get('tokens', id, **kwargs)
+        return data
+
     def convert(self, content):
         """Convert content to Python data structures."""
         if self.format == 'json':

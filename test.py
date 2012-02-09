@@ -139,5 +139,17 @@ class ThreePost(unittest.TestCase):
         req.post.assert_called_with(expected, params=params)
 
 
+class ThreeToken(unittest.TestCase):
+
+    def setUp(self):
+        req.get = Mock()
+
+    def test_a_default_token_call(self):
+        t = Three('api.city.gov')
+        t.token('12345')
+        expected = 'https://api.city.gov/tokens/12345.json'
+        req.get.assert_called_with(expected, params={})
+
+
 if __name__ == '__main__':
     unittest.main()

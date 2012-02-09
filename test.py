@@ -6,6 +6,7 @@ import os
 import unittest
 from mock import Mock
 
+from three import three
 from three import Three
 from three.three import requests as req
 
@@ -48,6 +49,7 @@ class ThreeDiscovery(unittest.TestCase):
 
     def setUp(self):
         req.get = Mock()
+        three.json = Mock()
 
     def test_default_discovery_method(self):
         t = Three('api.city.gov')
@@ -65,6 +67,7 @@ class ThreeServices(unittest.TestCase):
 
     def setUp(self):
         req.get = Mock()
+        three.json = Mock()
 
     def test_empty_services_call(self):
         t = Three('api.city.gov')
@@ -90,6 +93,7 @@ class ThreeRequests(unittest.TestCase):
 
     def setUp(self):
         req.get = Mock()
+        three.json = Mock()
 
     def test_empty_requests_call(self):
         t = Three('api.city.gov')
@@ -116,6 +120,7 @@ class ThreeRequest(unittest.TestCase):
 
     def setUp(self):
         req.get = Mock()
+        three.json = Mock()
 
     def test_getting_a_specific_request(self):
         t = Three('api.city.gov')
@@ -128,6 +133,7 @@ class ThreePost(unittest.TestCase):
 
     def setUp(self):
         req.post = Mock()
+        three.json = Mock()
 
     def test_a_default_post(self):
         t = Three('api.city.gov', api_key='my_api_key')
@@ -143,6 +149,7 @@ class ThreeToken(unittest.TestCase):
 
     def setUp(self):
         req.get = Mock()
+        three.json = Mock()
 
     def test_a_default_token_call(self):
         t = Three('api.city.gov')

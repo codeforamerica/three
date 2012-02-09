@@ -67,9 +67,23 @@ class Three(object):
 
     def get(self, *args, **kwargs):
         """Perform a get request."""
+        if 'convert' in kwargs:
+            conversion = kwargs.pop('convert')
+        else:
+            conversion = True
         url = self._create_path(*args)
-        # TODO: Still need to add on additional parameters.
-        data = requests.get(url, params=kwargs).content
+        content = requests.get(url, params=kwargs).content
+        return self.convert(content, conversion)
+
+    def convert(self, content, conversion):
+        """Convert content to Python data structures."""
+        if not conversion:
+            data = content
+        elif self.format == 'json':
+            data = json.loads(content)
+        else:
+            # XML2Dict the content?
+            data = content
         return data
 
     def discovery(self, url=None):
@@ -154,13 +168,4 @@ class Three(object):
         {'service_request_id': {'for': {'token': '12345'}}}
         """
         data = self.get('tokens', id, **kwargs)
-        return data
-
-    def convert(self, content):
-        """Convert content to Python data structures."""
-        if self.format == 'json':
-            data = json.loads(content)
-        else:
-            # XML2Dict the content?
-            data = content
         return data

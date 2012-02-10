@@ -70,6 +70,7 @@ orgininal settings with the `reset` method.
     ...             api_key='SF_OPEN311_API_KEY')
     >>> t.services()
     {'SF': {'service': 'data'}}
+    >>> t.configure(api_key='ANOTHER_API_KEY')
     >>> # Switch back to original settings.
     ... t.reset()
 

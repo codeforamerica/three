@@ -57,6 +57,23 @@ use `XML` as your format of choice.
 Usage
 -----
 
+### Configure
+
+After you've initialized your `Three` class, you can readjust its
+settings with the `configure` method. You can also switch back to the
+orgininal settings with the `reset` method.
+
+    >>> t = Three('api.city.gov', api_key='SECRET_KEY')
+    >>> t.services()
+    {'service': 'data'}
+    >>> t.configure(endpoint='open311.sfgov.org/dev/V2/', format='xml'
+    ...             api_key='SF_OPEN311_API_KEY')
+    >>> t.services()
+    {'SF': {'service': 'data'}}
+    >>> # Switch back to original settings.
+    ... t.reset()
+
+
 ### Discovery
 
 In order to use the [Open311 service discovery](http://wiki.open311.org/Service_Discovery),

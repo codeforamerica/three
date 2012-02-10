@@ -9,6 +9,17 @@ from itertools import ifilter
 import requests
 import simplejson as json
 
+try:
+    # lxml ftw
+    from lxml import etree
+except ImportError:
+    try:
+        # Python 2.5+
+        import xml.etree.cElementTree as etree
+    except ImportError:
+        # Python 2.5+
+        import xml.etree.ElementTree as etree
+
 
 class Three(object):
     """The main class for interacting with the Open311 API."""

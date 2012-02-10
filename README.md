@@ -63,6 +63,7 @@ After you've initialized your `Three` class, you can readjust its
 settings with the `configure` method. You can also switch back to the
 orgininal settings with the `reset` method.
 
+    >>> from three import Three
     >>> t = Three('api.city.gov', api_key='SECRET_KEY')
     >>> t.services()
     {'service': 'data'}
@@ -80,7 +81,6 @@ orgininal settings with the `reset` method.
 In order to use the [Open311 service discovery](http://wiki.open311.org/Service_Discovery),
 simply invoke the `discovery` method.
 
-    >>> from three import Three
     >>> t = Three('api.city.gov')
     >>> t.discovery()
     {'service': {'discovery': 'data'}}

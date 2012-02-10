@@ -33,8 +33,10 @@ class Three(object):
             api_key = ''
         return api_key
 
-    def configure(self, **kwargs):
+    def configure(self, endpoint=None, **kwargs):
         """Configure a previously initialized instance of the class."""
+        if endpoint:
+            kwargs['endpoint'] = endpoint
         keywords = self._keywords.copy()
         keywords.update(kwargs)
         if 'endpoint' in kwargs:

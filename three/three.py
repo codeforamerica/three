@@ -8,6 +8,7 @@ from itertools import ifilter
 
 import requests
 import simplejson as json
+from .xml import XML
 
 
 class Three(object):
@@ -83,8 +84,9 @@ class Three(object):
             data = content
         elif self.format == 'json':
             data = json.loads(content)
+        elif self.format == 'xml':
+            data = XML(content)
         else:
-            # XML2Dict the content?
             data = content
         return data
 

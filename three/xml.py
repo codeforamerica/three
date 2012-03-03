@@ -3,6 +3,8 @@ Convert XML to a Python dictionary. Originally from:
 http://code.activestate.com/recipes/578017/
 """
 
+import re
+
 try:
     # lxml ftw
     from lxml import etree
@@ -16,7 +18,7 @@ except ImportError:
 
 
 class ElementList(list):
-    """Configure an XML structure into a list of dictionaries."""
+    """Configure an XML element structure into a list of dictionaries."""
     def __init__(self, a_list):
         for element in a_list:
             if element is not None:
@@ -48,8 +50,10 @@ class XML(dict):
     And then use xmldict for what it is... a dict.
     """
     def __init__(self, parent_element):
-        if isinstance(parent_element, str):
-            xml_string = parent_element.strip('\n')
+        if isinstance(parent_element, unicode):
+            # Remove the XML prologue tag.
+            xml_string = re.sub('<\?xml.*\?>', '', parent_element)
+            xml_string = xml_string.strip('\n')
             parent_element = etree.fromstring(xml_string)
         if parent_element.items():
             self.update(dict(parent_element.items()))

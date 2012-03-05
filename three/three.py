@@ -75,7 +75,8 @@ class Three(object):
         else:
             conversion = True
         url = self._create_path(*args)
-        content = requests.get(url, params=kwargs).content
+        self.request = requests.get(url, params=kwargs)
+        content = self.request.content
         return self.convert(content, conversion)
 
     def convert(self, content, conversion):
@@ -161,7 +162,8 @@ class Three(object):
             kwargs['api_key'] = self.api_key
         kwargs['service_code'] = code
         url = self._create_path('requests')
-        data = requests.post(url, data=kwargs).content
+        self.request = requests.post(url, data=kwargs)
+        data = self.request.content
         return data
 
     def token(self, id, **kwargs):

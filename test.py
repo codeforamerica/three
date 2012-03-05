@@ -143,7 +143,7 @@ class ThreePost(unittest.TestCase):
                   'service_code': '123', 'address_string': '85 2nd Street',
                   'api_key': 'my_api_key'}
         expected = 'https://api.city.gov/requests.json'
-        req.post.assert_called_with(expected, params=params)
+        req.post.assert_called_with(expected, data=params)
 
     def test_post_request_with_api_key_argument(self):
         t = Three('http://seeclicktest.com/open311/v2')
@@ -157,7 +157,7 @@ class ThreePost(unittest.TestCase):
             'api_key': 'my_api_key'
         }
         expected = 'http://seeclicktest.com/open311/v2/requests.json'
-        req.post.assert_called_with(expected, params=params)
+        req.post.assert_called_with(expected, data=params)
 
 
 class ThreeToken(unittest.TestCase):

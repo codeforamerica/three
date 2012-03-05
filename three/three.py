@@ -161,7 +161,7 @@ class Three(object):
             kwargs['api_key'] = self.api_key
         kwargs['service_code'] = code
         url = self._create_path('requests')
-        data = requests.post(url, params=kwargs).content
+        data = requests.post(url, data=kwargs).content
         return data
 
     def token(self, id, **kwargs):

@@ -67,10 +67,12 @@ orgininal settings with the `reset` method.
     >>> t = Three('api.city.gov', api_key='SECRET_KEY')
     >>> t.services()
     {'service': 'data'}
+
     >>> t.configure('open311.sfgov.org/dev/V2/', format='xml'
     ...             api_key='SF_OPEN311_API_KEY')
     >>> t.services()
     {'SF': {'service': 'data'}}
+
     >>> t.configure(api_key='ANOTHER_API_KEY')
     >>> # Switch back to original settings.
     ... t.reset()
@@ -114,6 +116,16 @@ To see available request data, use the `requests` method.
     >>> t = Three('api.city.gov')
     >>> t.requests()
     {'all': {'requests': 'data'}}
+
+[Most Open311
+implementations](http://lists.open311.org/groups/discuss/messages/topic/2y4jI0eZulj9aZTVS3JgAj)
+support `page_size` and `page` parameters.
+
+    >>> t.requests(page_size=50)
+    {'total': {'of': {'50': 'requests'}}}
+
+    >>> t.requests(page=2, page_size=50)
+    {'next': {'50': 'results'}}
 
 You can also specify a specific service code.
 

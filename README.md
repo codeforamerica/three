@@ -119,7 +119,7 @@ To see available request data, use the `requests` method.
 
 [Most Open311
 implementations](http://lists.open311.org/groups/discuss/messages/topic/2y4jI0eZulj9aZTVS3JgAj)
-support `page_size` and `page` parameters.
+support `page` and `page_size` parameters.
 
     >>> t.requests(page_size=50)
     {'total': {'of': {'50': 'requests'}}}

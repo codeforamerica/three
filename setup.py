@@ -10,7 +10,8 @@ except ImportError:
 
 setup(
     name="three",
-    version="0.1",
+    version="0.2",
+    url="http://github.com/codeforamerica/three",
     author="Zach Williams",
     author_email="hey@zachwill.com",
     description="An easy-to-use wrapper for the Open311 API",

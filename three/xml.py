@@ -50,7 +50,9 @@ class XML(dict):
     And then use xmldict for what it is... a dict.
     """
     def __init__(self, parent_element):
-        if isinstance(parent_element, unicode):
+        is_unicode = isinstance(parent_element, unicode)
+        is_string = isinstance(parent_element, str)
+        if is_unicode or is_string:
             # Remove the XML prologue tag.
             xml_string = re.sub('<\?xml.*\?>', '', parent_element)
             xml_string = xml_string.strip('\n')

@@ -8,6 +8,7 @@ from mock import Mock
 
 from three import three
 from three import Three
+from three import XML
 from three.three import requests as req
 
 
@@ -144,6 +145,20 @@ class ThreePost(unittest.TestCase):
         expected = 'https://api.city.gov/requests.json'
         req.post.assert_called_with(expected, params=params)
 
+    def test_post_request_with_api_key_argument(self):
+        t = Three('http://seeclicktest.com/open311/v2')
+        t.post('1627', name='Zach Williams', address='120 Spring St',
+               description='Just a test post.', phone='555-5555',
+               api_key='my_api_key')
+        params = {
+            'first_name': 'Zach', 'last_name': 'Williams',
+            'description': 'Just a test post.', 'service_code': '1627',
+            'address_string': '120 Spring St', 'phone': '555-5555',
+            'api_key': 'my_api_key'
+        }
+        expected = 'http://seeclicktest.com/open311/v2/requests.json'
+        req.post.assert_called_with(expected, params=params)
+
 
 class ThreeToken(unittest.TestCase):
 
@@ -156,6 +171,29 @@ class ThreeToken(unittest.TestCase):
         t.token('12345')
         expected = 'https://api.city.gov/tokens/12345.json'
         req.get.assert_called_with(expected, params={})
+
+
+class XMLParsing(unittest.TestCase):
+
+    def test_xml_on_a_single_element(self):
+        string = """
+        <test>
+          <a>1</a>
+        </test>
+        """
+        xml = XML(string)
+        self.assertEqual(xml, {'a': '1'})
+
+    def test_xml_converts_to_list(self):
+        string = """
+        <test>
+          <a>1</a>
+          <a>2</a>
+          <a>3</a>
+        </test>
+        """
+        xml = XML(string)
+        self.assertEqual(xml, {'a': ['1', '2', '3']})
 
 
 if __name__ == '__main__':

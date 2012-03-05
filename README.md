@@ -13,6 +13,12 @@ Installation
 This is still a work in progress, but you can `git clone` this repo and
 run `python setup.py install` to check out the current progress.
 
+The wrapper is also available through PyPi -- but installing through
+`pip` is currently **not advised** until it is in a production-ready
+state.
+
+    pip install three
+
 
 Settings
 --------

@@ -10,12 +10,11 @@ except ImportError:
 
 setup(
     name="three",
-    version="0.2",
+    version="0.3",
     url="http://github.com/codeforamerica/three",
     author="Zach Williams",
     author_email="hey@zachwill.com",
     description="An easy-to-use wrapper for the Open311 API",
-    long_description=open('README.md').read(),
     packages=[
         'three'
     ],

@@ -8,7 +8,7 @@ from itertools import ifilter
 
 import requests
 import simplejson as json
-from .xml import XML
+from .xmltools import XML
 
 
 class Three(object):

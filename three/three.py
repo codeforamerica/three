@@ -147,8 +147,9 @@ class Three(object):
         """
         Post a new Open311 request.
 
-        >>> Three('api.city.gov').post('123', address='123 Any St',
-        ...                            name='Zach Williams', phone='555-5555')
+        >>> t = Three('api.city.gov')
+        >>> t.post('123', address='123 Any St', name='Zach Williams',
+        ...        phone='555-5555', description='My issue description'.)
         {'successful': {'request': 'post'}}
         """
         if 'address' in kwargs:
@@ -163,8 +164,8 @@ class Three(object):
         kwargs['service_code'] = code
         url = self._create_path('requests')
         self.request = requests.post(url, data=kwargs)
-        data = self.request.content
-        return data
+        content = self.request.content
+        return self.convert(content, True)
 
     def token(self, id, **kwargs):
         """

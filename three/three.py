@@ -165,7 +165,11 @@ class Three(object):
         url = self._create_path('requests')
         self.request = requests.post(url, data=kwargs)
         content = self.request.content
-        return self.convert(content, True)
+        if self.request.status_code == 200:
+            conversion = True
+        else:
+            conversion = False
+        return self.convert(content, conversion)
 
     def token(self, id, **kwargs):
         """

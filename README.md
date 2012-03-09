@@ -163,7 +163,8 @@ key](http://wiki.open311.org/GeoReport_v2#POST_Service_Request).
 
     >>> t = Three('api.city.gov', api_key='SECRET_KEY')
     >>> t.post('123', name='Zach Williams', address='85 2nd St',
-    ...        description='New service code 123 request.')
+    ...        description='New service code 123 request.',
+    ...        email='zach@codeforamerica.org')
     {'new': {'request': 'created'}}
 
 

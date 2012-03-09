@@ -143,7 +143,7 @@ class Three(object):
         data = self.get('requests', id, **kwargs)
         return data
 
-    def post(self, code, **kwargs):
+    def post(self, code='0', **kwargs):
         """
         Post a new Open311 request.
 

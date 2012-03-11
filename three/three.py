@@ -7,8 +7,8 @@ from collections import defaultdict
 from itertools import ifilter
 
 import requests
+from relaxml import xml
 import simplejson as json
-from .converters import xml
 
 
 class Three(object):

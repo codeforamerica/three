@@ -20,8 +20,9 @@ setup(
     ],
     install_requires=[
         'mock',
-        'simplejson',
+        'relaxml',
         'requests',
+        'simplejson',
     ],
     license='MIT',
     classifiers=[

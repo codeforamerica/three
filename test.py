@@ -6,7 +6,7 @@ import os
 import unittest
 from mock import Mock
 
-from three import Three, three, xml
+from three import Three, three
 from three.three import requests as req
 
 
@@ -169,29 +169,6 @@ class ThreeToken(unittest.TestCase):
         t.token('12345')
         expected = 'https://api.city.gov/tokens/12345.json'
         req.get.assert_called_with(expected, params={})
-
-
-class XMLParsing(unittest.TestCase):
-
-    def test_xml_on_a_single_element(self):
-        string = """
-        <test>
-          <a>1</a>
-        </test>
-        """
-        x = xml(string)
-        self.assertEqual(x, {'a': '1'})
-
-    def test_xml_converts_to_list(self):
-        string = """
-        <test>
-          <a>1</a>
-          <a>2</a>
-          <a>3</a>
-        </test>
-        """
-        x = xml(string)
-        self.assertEqual(x, {'a': ['1', '2', '3']})
 
 
 if __name__ == '__main__':

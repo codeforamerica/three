@@ -161,7 +161,8 @@ class Three(object):
             kwargs['last_name'] = last
         if 'api_key' not in kwargs:
             kwargs['api_key'] = self.api_key
-        kwargs['service_code'] = code
+        if 'service_code' not in kwargs:
+            kwargs['service_code'] = code
         url = self._create_path('requests')
         self.request = requests.post(url, data=kwargs)
         content = self.request.content

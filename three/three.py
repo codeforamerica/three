@@ -86,7 +86,9 @@ class Three(object):
         elif self.format == 'json':
             data = json.loads(content)
         elif self.format == 'xml':
-            data = xml(content)
+            content = xml(content)
+            first = content.keys()[0]
+            data = content[first]
         else:
             data = content
         return data

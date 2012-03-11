@@ -6,9 +6,7 @@ import os
 import unittest
 from mock import Mock
 
-from three import three
-from three import Three
-from three import XML
+from three import Three, three, xml
 from three.three import requests as req
 
 
@@ -181,8 +179,8 @@ class XMLParsing(unittest.TestCase):
           <a>1</a>
         </test>
         """
-        xml = XML(string)
-        self.assertEqual(xml, {'a': '1'})
+        x = xml(string)
+        self.assertEqual(x, {'a': '1'})
 
     def test_xml_converts_to_list(self):
         string = """
@@ -192,8 +190,8 @@ class XMLParsing(unittest.TestCase):
           <a>3</a>
         </test>
         """
-        xml = XML(string)
-        self.assertEqual(xml, {'a': ['1', '2', '3']})
+        x = xml(string)
+        self.assertEqual(x, {'a': ['1', '2', '3']})
 
 
 if __name__ == '__main__':

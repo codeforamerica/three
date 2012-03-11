@@ -8,7 +8,7 @@ from itertools import ifilter
 
 import requests
 import simplejson as json
-from .xmltools import XML
+from .converters import xml
 
 
 class Three(object):
@@ -86,7 +86,7 @@ class Three(object):
         elif self.format == 'json':
             data = json.loads(content)
         elif self.format == 'xml':
-            data = XML(content)
+            data = xml(content)
         else:
             data = content
         return data

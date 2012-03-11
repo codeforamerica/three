@@ -1,12 +1,13 @@
 """
-Convert XML to a Python dictionary. Originally from:
-http://code.activestate.com/recipes/578017/
+Convert XML to a Python dictionary.
+
+Adapted from:  https://github.com/zachwill/xml2dict
 """
 
 import re
 
 try:
-    # lxml ftw
+    # Try to use lxml if it's available.
     from lxml import etree
 except ImportError:
     try:

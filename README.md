@@ -177,3 +177,20 @@ can use the `token` method.
     >>> t = Three('api.city.gov')
     >>> t.token('12345')
     {'service_request_id': {'for': {'token': '12345'}}}
+
+
+More Examples
+-------------
+
+Here's a collection of more working examples using actual [Open311
+GeoReport Servers](http://wiki.open311.org/GeoReport_v2/Servers).
+
+```python
+>>> from three import Three
+
+>>> sf = Three('open311.sfgov.org/dev/V2/', format='xml', jurisdiction='sfgov.org')
+
+>>> sf.services()
+
+>>> sf.requests()
+```

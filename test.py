@@ -6,6 +6,7 @@ import os
 import unittest
 from mock import Mock
 
+import three
 from three import Three, core
 from three.core import requests as req
 
@@ -169,6 +170,31 @@ class ThreeToken(unittest.TestCase):
         t.token('12345')
         expected = 'https://api.city.gov/tokens/12345.json'
         req.get.assert_called_with(expected, params={})
+
+
+class TopLevelFunctions(unittest.TestCase):
+
+    def setUp(self):
+        req.get = Mock()
+        core.json = Mock()
+
+    def test_three_api(self):
+        three.api_key('my_api_key')
+        key = os.environ['OPEN311_API_KEY']
+        self.assertEqual(key, 'my_api_key')
+
+    def test_three_city_info(self):
+        three.city('sf')
+        info = os.environ['OPEN311_CITY_INFO']
+        self.assertTrue(info)
+
+    def test_three_services(self):
+        three.city('sf')
+        three.services()
+        import pdb; pdb.set_trace()
+
+    def tearDown(self):
+        os.environ['OPEN311_API_KEY'] = ''
 
 
 if __name__ == '__main__':

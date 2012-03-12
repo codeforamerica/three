@@ -185,6 +185,7 @@ More Examples
 Here's a collection of more working examples using actual [Open311
 GeoReport Servers](http://wiki.open311.org/GeoReport_v2/Servers).
 
+### San Francisco
 ```python
 >>> from three import Three
 
@@ -193,4 +194,20 @@ GeoReport Servers](http://wiki.open311.org/GeoReport_v2/Servers).
 >>> sf.services()
 
 >>> sf.requests()
+
+>>> sf.requests('309')
+```
+
+
+### Boston
+```python
+>>> from three import Three
+
+>>> bos = Three('mayors24.cityofboston.gov:6443/open311/v2/')
+
+>>> bos.services()
+
+>>> bos.requests()
+
+>>> bos.requests('4e5edfee21ecf3010d000026')
 ```

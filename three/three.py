@@ -74,6 +74,8 @@ class Three(object):
             conversion = kwargs.pop('convert')
         else:
             conversion = True
+        if self.jurisdiction and 'jurisdiction_id' not in kwargs:
+            kwargs['jurisdiction_id'] = self.jurisdiction
         url = self._create_path(*args)
         self.request = requests.get(url, params=kwargs)
         content = self.request.content

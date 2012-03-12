@@ -1,3 +1,3 @@
-from . import three
+from . import core
 from .api import api_key, city, discovery, request, requests, services, token
-from .three import Three
+from .core import Three

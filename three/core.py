@@ -20,10 +20,10 @@ class Three(object):
         if endpoint:
             endpoint = self._configure_endpoint(endpoint)
             keywords['endpoint'] = endpoint
-        elif 'OPEN311_ENDPOINT' in os.environ:
-            endpoint = os.environ['OPEN311_ENDPOINT']
-            endpoint = self._configure_endpoint(endpoint)
+        elif 'OPEN311_CITY_INFO' in os.environ:
             info = json.loads(os.environ['OPEN311_CITY_INFO'])
+            endpoint = info['endpoint']
+            endpoint = self._configure_endpoint(endpoint)
             keywords.update(info)
             keywords['endpoint'] = endpoint
         self._keywords = keywords

@@ -4,7 +4,7 @@ Simple, top-level functions for working with the Open311 API.
 
 import os
 from .cities import find_info
-from .three import Three
+from .core import Three
 from simplejson import dumps
 
 
@@ -26,10 +26,8 @@ def city(name):
     >>> three.city('sf')
     """
     info = find_info(name)
-    endpoint = info.pop('endpoint')
-    os.environ['OPEN311_ENDPOINT'] = endpoint
     os.environ['OPEN311_CITY_INFO'] = dumps(info)
-    return Three(endpoint, **info)
+    return Three(**info)
 
 
 def discovery(path=None, **kwargs):

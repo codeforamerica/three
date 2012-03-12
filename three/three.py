@@ -20,6 +20,12 @@ class Three(object):
         if endpoint:
             endpoint = self._configure_endpoint(endpoint)
             keywords['endpoint'] = endpoint
+        elif 'OPEN311_ENDPOINT' in os.environ:
+            endpoint = os.environ['OPEN311_ENDPOINT']
+            endpoint = self._configure_endpoint(endpoint)
+            info = json.loads(os.environ['OPEN311_CITY_INFO'])
+            keywords.update(info)
+            keywords['endpoint'] = endpoint
         self._keywords = keywords
         self.configure()
 
@@ -77,8 +83,9 @@ class Three(object):
         if self.jurisdiction and 'jurisdiction_id' not in kwargs:
             kwargs['jurisdiction_id'] = self.jurisdiction
         url = self._create_path(*args)
-        self.request = requests.get(url, params=kwargs)
-        content = self.request.content
+        request = requests.get(url, params=kwargs)
+        content = request.content
+        self._request = request
         return self.convert(content, conversion)
 
     def convert(self, content, conversion):

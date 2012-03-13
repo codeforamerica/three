@@ -18,6 +18,27 @@ Alternatively, you can install via `pip`.
     pip install three
 
 
+At A Glance
+-----------
+
+`Three` was made to make the differences in Open311 server
+implementations completely unknown to the end user. Interacting with
+service requests should be easy.
+
+    >>> import three
+
+    >>> three.city('sf')
+    >>> three.services()
+
+    >>> three.key('my_sf_api_key')
+    >>> three.requests()
+
+A `Three` class can also be imported and customized, but, for casual
+users, working with the `three` module should feel effortless. Any pain
+points (such as dealing with XML, required parameters, etc.) should be
+abstracted away.
+
+
 Settings
 --------
 

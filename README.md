@@ -28,10 +28,13 @@ service requests should be easy.
     >>> import three
 
     >>> three.city('sf')
-    >>> three.services()
-
     >>> three.key('my_sf_api_key')
+
+    >>> three.services()
+    {'SF': {'service': 'data'}}
+
     >>> three.requests()
+    {'SF': {'request': 'data'}}
 
 A `Three` class can also be imported and customized, but, for casual
 users, working with the `three` module should feel effortless. Any pain

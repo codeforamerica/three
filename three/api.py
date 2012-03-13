@@ -8,7 +8,7 @@ from .core import Three
 from simplejson import dumps
 
 
-def api_key(key=None):
+def key(key=None):
     """
     Save your API key to the global environment.
 

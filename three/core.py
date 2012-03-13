@@ -163,6 +163,20 @@ class Three(object):
         ...        phone='555-5555', description='My issue description'.)
         {'successful': {'request': 'post'}}
         """
+        kwargs['code'] = code
+        kwargs = self._post_keywords(**kwargs)
+        url = self._create_path('requests')
+        self.request = requests.post(url, data=kwargs)
+        content = self.request.content
+        if self.request.status_code == 200:
+            conversion = True
+        else:
+            conversion = False
+        return self.convert(content, conversion)
+
+    def _post_keywords(self, **kwargs):
+        """Configure keyword arguments for Open311 POST requests."""
+        code = kwargs.pop('code')
         if 'address' in kwargs:
             address = kwargs.pop('address')
             kwargs['address_string'] = address
@@ -174,14 +188,7 @@ class Three(object):
             kwargs['api_key'] = self.api_key
         if 'service_code' not in kwargs:
             kwargs['service_code'] = code
-        url = self._create_path('requests')
-        self.request = requests.post(url, data=kwargs)
-        content = self.request.content
-        if self.request.status_code == 200:
-            conversion = True
-        else:
-            conversion = False
-        return self.convert(content, conversion)
+        return kwargs
 
     def token(self, id, **kwargs):
         """

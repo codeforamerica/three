@@ -179,7 +179,7 @@ class TopLevelFunctions(unittest.TestCase):
         core.json = Mock()
 
     def test_three_api(self):
-        three.api_key('my_api_key')
+        three.key('my_api_key')
         key = os.environ['OPEN311_API_KEY']
         self.assertEqual(key, 'my_api_key')
 
@@ -191,7 +191,6 @@ class TopLevelFunctions(unittest.TestCase):
     def test_three_services(self):
         three.city('sf')
         three.services()
-        import pdb; pdb.set_trace()
 
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''

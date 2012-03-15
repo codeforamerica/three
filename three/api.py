@@ -40,6 +40,18 @@ def discovery(path=None, **kwargs):
     return Three().discovery(path, **kwargs)
 
 
+def post(code=None, **kwargs):
+    """
+    Send a POST service request to a city's Open311 endpoint.
+
+    >>> three.city('sf')
+    >>> three.post('123', address='155 9th St', name='Zach Williams',
+    ...            phone='555-5555', description='My issue description'.)
+    {'successful': {'request': 'post'}}
+    """
+    return Three().post(code, **kwargs)
+
+
 def request(code, **kwargs):
     """
     Find a specific request in a city.

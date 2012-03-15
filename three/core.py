@@ -82,6 +82,8 @@ class Three(object):
             conversion = True
         if self.jurisdiction and 'jurisdiction_id' not in kwargs:
             kwargs['jurisdiction_id'] = self.jurisdiction
+        if 'count' in kwargs:
+            kwargs['page_size'] = kwargs.pop('count')
         url = self._create_path(*args)
         request = requests.get(url, params=kwargs)
         content = request.content

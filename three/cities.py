@@ -20,6 +20,9 @@ def find_info(name=None):
 
 
 servers = {
+    'bainbridge': {
+        'endpoint': 'http://seeclickfix.com/bainbridge-island/open311/'
+    },
     'baltimore': {
         'endpoint': 'http://311.baltimorecity.gov/open311/v2/'
     },
@@ -32,6 +35,12 @@ servers = {
     'brookline': {
         'endpoint': 'http://spot.brooklinema.gov/open311/v2/'
     },
+    'corona': {
+        'endpoint': 'http://seeclickfix.com/corona/open311/'
+    },
+    'deleon': {
+        'endpoint': 'http://seeclickfix.com/de-leon/open311/'
+    },
     'grand rapids': {
         'endpoint': 'http://grcity.spotreporters.com/open311/v2/'
     },
@@ -40,6 +49,15 @@ servers = {
     },
     'new haven': {
         'endpoint': 'http://seeclickfix.com/new-haven/open311/'
+    },
+    'newark': {
+        'endpoint': 'http://seeclickfix.com/newark_2/open311/'
+    },
+    'raleigh': {
+        'endpoint': 'http://seeclickfix.com/raleigh/open311/'
+    },
+    'richmond': {
+        'endpoint': 'http://seeclickfix.com/richmond/open311/'
     },
     'san francisco': {
         'endpoint': 'https://open311.sfgov.org/V2/',
@@ -54,5 +72,8 @@ servers = {
     'toronto': {
         'endpoint': 'https://secure.toronto.ca/webwizard/ws/',
         'jurisdiction': 'toronto.ca'
+    },
+    'tucson': {
+        'endpoint': 'http://seeclickfix.com/tucson/open311/'
     },
 }

@@ -34,11 +34,20 @@ service requests should be easy.
 >>> three.city('sf')
 >>> three.key('my_sf_api_key')
 
+>>> three.discovery()
+{'service': {'discovery': 'data'}}
+
 >>> three.services()
 {'SF': {'service': 'data'}}
 
+>>> three.services('033')
+{'033': {'service_code': 'info'}}
+
 >>> three.requests()
 {'SF': {'request': 'data'}}
+
+>>> three.requests('123')
+{'123': {'request': 'data'}}
 ```
 
 A `Three` class can also be imported and customized, but, for casual

@@ -4,7 +4,7 @@ Unit tests for the Three Open311 API wrapper.
 
 import os
 import unittest
-from mock import Mock
+from mock import Mock, MagicMock
 
 import three
 from three import Three, core
@@ -176,12 +176,16 @@ class TopLevelFunctions(unittest.TestCase):
 
     def setUp(self):
         req.get = Mock()
-        core.json = Mock()
+        core.json = MagicMock()
 
     def test_three_api(self):
         three.key('my_api_key')
         key = os.environ['OPEN311_API_KEY']
         self.assertEqual(key, 'my_api_key')
+
+    def test_cities_function_returns_a_list(self):
+        cities = three.cities()
+        self.assertTrue(isinstance(cities, list))
 
     def test_three_city_info(self):
         three.city('sf')
@@ -191,6 +195,7 @@ class TopLevelFunctions(unittest.TestCase):
     def test_three_services(self):
         three.city('sf')
         three.services()
+        self.assertTrue(req.get.called)
 
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''

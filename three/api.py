@@ -25,9 +25,6 @@ def city(name=None):
 
     >>> three.city('sf')
     """
-    if not name:
-        # Then return a list of available cities.
-        return cities()
     info = find_info(name)
     os.environ['OPEN311_CITY_INFO'] = dumps(info)
     return Three(**info)

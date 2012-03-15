@@ -192,6 +192,21 @@ class TopLevelFunctions(unittest.TestCase):
         info = os.environ['OPEN311_CITY_INFO']
         self.assertTrue(info)
 
+    def test_three_discovery(self):
+        three.city('new haven')
+        three.discovery()
+        self.assertTrue(req.get.called)
+
+    def test_three_requests(self):
+        three.city('macon')
+        three.requests()
+        self.assertTrue(req.get.called)
+
+    def test_three_request_specific_report(self):
+        three.city('macon')
+        three.request('123abc')
+        self.assertTrue(req.get.called)
+
     def test_three_services(self):
         three.city('sf')
         three.services()

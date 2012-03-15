@@ -19,15 +19,24 @@ def key(key=None):
     return os.environ['OPEN311_API_KEY']
 
 
-def city(name):
+def city(name=None):
     """
     Store the city that will be queried against.
 
     >>> three.city('sf')
     """
+    if not name:
+        # Then return a list of available cities.
+        return cities()
     info = find_info(name)
     os.environ['OPEN311_CITY_INFO'] = dumps(info)
     return Three(**info)
+
+
+def cities():
+    """Return a list of available cities."""
+    info = find_info()
+    return info
 
 
 def discovery(path=None, **kwargs):

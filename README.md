@@ -27,6 +27,9 @@ service requests should be easy.
 
     >>> import three
 
+    >>> three.cities()
+    ['boston', 'macon', 'sf', ...]
+
     >>> three.city('sf')
     >>> three.key('my_sf_api_key')
 

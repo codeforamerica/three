@@ -84,6 +84,10 @@ class Three(object):
             kwargs['jurisdiction_id'] = self.jurisdiction
         if 'count' in kwargs:
             kwargs['page_size'] = kwargs.pop('count')
+        if 'start' in kwargs:
+            start, end = kwargs.pop('start'), kwargs.pop('end')
+            kwargs['start_date'] = start
+            kwargs['end_date'] = end
         url = self._create_path(*args)
         request = requests.get(url, params=kwargs)
         content = request.content

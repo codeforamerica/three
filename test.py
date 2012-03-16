@@ -124,9 +124,30 @@ class ThreeRequest(unittest.TestCase):
 
     def test_getting_a_specific_request(self):
         t = Three('api.city.gov')
-        t.request('12345')
-        expected = 'https://api.city.gov/requests/12345.json'
+        t.request('123')
+        expected = 'https://api.city.gov/requests/123.json'
         req.get.assert_called_with(expected, params={})
+
+    def test_start_and_end_keyword_arguments(self):
+        t = Three('api.city.gov')
+        t.request('456', start='03-01-2010', end='03-05-2010')
+        expected = 'https://api.city.gov/requests/456.json'
+        params = {
+            'start_date': '2010-03-01T00:00:00Z',
+            'end_date': '2010-03-05T00:00:00Z'
+        }
+        req.get.assert_called_with(expected, params=params)
+
+    def test_between_keyword_argument(self):
+        t = Three('api.city.gov')
+        t.request('789', between=['03-01-2010', '03-05-2010'])
+        expected = 'https://api.city.gov/requests/789.json'
+        params = {
+            'start_date': '2010-03-01T00:00:00Z',
+            'end_date': '2010-03-05T00:00:00Z'
+        }
+        req.get.assert_called_with(expected, params=params)
+
 
 
 class ThreePost(unittest.TestCase):

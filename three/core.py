@@ -3,7 +3,9 @@ A new Python wrapper for interacting with the Open311 API.
 """
 
 import os
+import re
 from collections import defaultdict
+from datetime import date
 from itertools import ifilter
 
 import requests
@@ -80,19 +82,42 @@ class Three(object):
             conversion = kwargs.pop('convert')
         else:
             conversion = True
+        kwargs = self._get_keywords(**kwargs)
+        url = self._create_path(*args)
+        request = requests.get(url, params=kwargs)
+        content = request.content
+        self._request = request
+        return self.convert(content, conversion)
+
+    def _get_keywords(self, **kwargs):
+        """Format GET request parameters and keywords."""
         if self.jurisdiction and 'jurisdiction_id' not in kwargs:
             kwargs['jurisdiction_id'] = self.jurisdiction
         if 'count' in kwargs:
             kwargs['page_size'] = kwargs.pop('count')
         if 'start' in kwargs:
             start, end = kwargs.pop('start'), kwargs.pop('end')
+            start, end = self._format_dates(start, end)
             kwargs['start_date'] = start
             kwargs['end_date'] = end
-        url = self._create_path(*args)
-        request = requests.get(url, params=kwargs)
-        content = request.content
-        self._request = request
-        return self.convert(content, conversion)
+        elif 'between' in kwargs:
+            start, end = kwargs.pop('between')
+            start, end = self._format_dates(start, end)
+            kwargs['start_date'] = start
+            kwargs['end_date'] = end
+        return kwargs
+
+    def _format_dates(self, start, end):
+        """Format start and end dates."""
+        start = self._split_date(start)
+        end = self._split_date(end)
+        return start, end
+
+    def _split_date(self, time):
+        """Split apart a date string."""
+        month, day, year = [int(t) for t in re.split(r'-|/', time)]
+        time = date(year, month, day)
+        return time.strftime('%Y-%m-%dT%H:%M:%SZ')
 
     def convert(self, content, conversion):
         """Convert content to Python data structures."""

@@ -236,6 +236,11 @@ class TopLevelFunctions(unittest.TestCase):
         three.services()
         self.assertTrue(req.get.called)
 
+    def test_three_token(self):
+        three.token('123abc')
+        three.services()
+        self.assertTrue(req.get.called)
+
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''
 

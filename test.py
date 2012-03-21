@@ -7,7 +7,7 @@ import unittest
 from mock import Mock, MagicMock
 
 import three
-from three import Three, core
+from three import core, Three, CityNotFound
 from three.core import requests as req
 
 
@@ -212,6 +212,9 @@ class TopLevelFunctions(unittest.TestCase):
         three.city('sf')
         info = os.environ['OPEN311_CITY_INFO']
         self.assertTrue(info)
+
+    def test_three_city_error(self):
+        self.assertRaises(CityNotFound, three.city, 'this is made up')
 
     def test_three_discovery(self):
         three.city('new haven')

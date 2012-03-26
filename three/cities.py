@@ -38,14 +38,35 @@ servers = {
     'corona': {
         'endpoint': 'http://seeclickfix.com/corona/open311/'
     },
+    'darwin': {
+        'endpoint': 'http://seeclickfix.com/aus_darwin/open311/'
+    },
     'deleon': {
         'endpoint': 'http://seeclickfix.com/de-leon/open311/'
+    },
+    'dunwoody': {
+        'endpoint': 'http://seeclickfix.com/dunwoody_ga/open311/'
+    },
+    'fontana': {
+        'endpoint': 'http://seeclickfix.com/fontana/open311/'
     },
     'grand rapids': {
         'endpoint': 'http://grcity.spotreporters.com/open311/v2/'
     },
+    'hillsborough': {
+        'endpoint': 'http://seeclickfix.com/hillsborough/open311/'
+    },
+    'howard county': {
+        'endpoint': 'http://seeclickfix.com/md_howard-county/open311/'
+    },
+    'huntsville': {
+        'endpoint': 'http://seeclickfix.com/huntsville/open311/'
+    },
     'macon': {
         'endpoint': 'http://seeclickfix.com/macon/open311/'
+    },
+    'manor': {
+        'endpoint': 'http://seeclickfix.com/manor/open311/'
     },
     'new haven': {
         'endpoint': 'http://seeclickfix.com/new-haven/open311/'
@@ -53,11 +74,26 @@ servers = {
     'newark': {
         'endpoint': 'http://seeclickfix.com/newark_2/open311/'
     },
+    'newberg': {
+        'endpoint': 'http://seeclickfix.com/newberg/open311/'
+    },
+    'newnan': {
+        'endpoint': 'http://seeclickfix.com/newnan/open311/'
+    },
+    'olathe': {
+        'endpoint': 'http://seeclickfix.com/olathe/open311/'
+    },
     'raleigh': {
         'endpoint': 'http://seeclickfix.com/raleigh/open311/'
     },
     'richmond': {
         'endpoint': 'http://seeclickfix.com/richmond/open311/'
+    },
+    'roosevelt island': {
+        'endpoint': 'http://seeclickfix.com/roosevelt-island/open311/'
+    },
+    'russell springs': {
+        'endpoint': 'http://seeclickfix.com/russell-springs/open311/'
     },
     'san francisco': {
         'endpoint': 'https://open311.sfgov.org/V2/',

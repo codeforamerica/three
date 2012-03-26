@@ -31,23 +31,45 @@ service requests should be easy.
 >>> three.cities()
 ['boston', 'macon', 'sf', ...]
 
->>> three.city('sf')
->>> three.key('my_sf_api_key')
+>>> three.city('macon')
+>>> three.key('my_macon_api_key')
 
 >>> three.discovery()
 {'service': {'discovery': 'data'}}
 
 >>> three.services()
-{'SF': {'service': 'data'}}
+{'macon': {'service': 'data'}}
 
 >>> three.services('033')
 {'033': {'service_code': 'info'}}
 
 >>> three.requests()
-{'SF': {'request': 'data'}}
+{'macon': {'request': 'data'}}
 
 >>> three.requests('123')
 {'123': {'request': 'data'}}
+
+>>> # Now let's switch it up to San Francisco.
+
+>>> three.city('sf')
+>>> three.key('my_sf_api_key')
+
+>>> three.services()
+{'SF': {'service': 'data'}}
+
+>>> three.requests()
+{'SF': {'request': 'data'}}
+
+>>> # And, finally Baltimore.
+
+>>> three.city('baltimore')
+>>> three.key('baltimore_api_key')
+
+>>> three.services()
+{'baltimore': {'service': 'data'}}
+
+>>> three.requests()
+{'baltimore': {'request': 'data'}}
 ```
 
 A `Three` class can also be imported and customized, but, for casual

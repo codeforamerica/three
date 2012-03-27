@@ -50,8 +50,7 @@ service requests should be easy.
 {'123': {'request': 'data'}}
 
 >>> # Now let's switch it up to San Francisco.
-
->>> three.city('sf')
+... three.city('sf')
 >>> three.key('my_sf_api_key')
 
 >>> three.services()
@@ -61,8 +60,7 @@ service requests should be easy.
 {'SF': {'request': 'data'}}
 
 >>> # And, finally Baltimore.
-
->>> three.city('baltimore')
+... three.city('baltimore')
 >>> three.key('baltimore_api_key')
 
 >>> three.services()

@@ -31,6 +31,7 @@ service requests should be easy.
 >>> three.cities()
 ['boston', 'macon', 'sf', ...]
 
+# Let's start off with Macon.
 >>> three.city('macon')
 >>> three.key('my_macon_api_key')
 
@@ -49,8 +50,8 @@ service requests should be easy.
 >>> three.requests('123')
 {'123': {'request': 'data'}}
 
->>> # Now let's switch it up to San Francisco.
-... three.city('sf')
+# Now, let's switch it up to San Francisco.
+>>> three.city('sf')
 >>> three.key('my_sf_api_key')
 
 >>> three.services()
@@ -59,8 +60,8 @@ service requests should be easy.
 >>> three.requests()
 {'SF': {'request': 'data'}}
 
->>> # And, finally Baltimore.
-... three.city('baltimore')
+# And, finally Baltimore.
+>>> three.city('baltimore')
 >>> three.key('baltimore_api_key')
 
 >>> three.services()

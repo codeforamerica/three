@@ -92,8 +92,35 @@ abstracted away.
 ```
 
 
+Subclassing
+-----------
+
+It's also possible to subclass `Three`.
+
+```python
+from three import Three
+
+class SF(Three):
+    def __init__(self):
+        self.endpoint = "https://open311.sfgov.org/dev/V2/"
+        self.format = "xml"
+        self.jurisdiction = "sfgov.org"
+```
+
+You could then use the `SF` class just as you would an instance of
+`Three`.
+
+```python
+>>> SF().services()
+
+>>> SF().requests()
+```
+
+
 Settings
 --------
+
+These settings apply to the core `Three` class.
 
 ### API Key
 
@@ -282,29 +309,4 @@ GeoReport Servers](http://wiki.open311.org/GeoReport_v2/Servers).
 >>> bos.requests()
 
 >>> bos.requests('4e5edfee21ecf3010d000026')
-```
-
-
-Subclassing
------------
-
-It's also possible to subclass `Three`.
-
-```python
-from three import Three
-
-class SF(Three):
-    def __init__(self):
-        self.endpoint = "https://open311.sfgov.org/dev/V2/"
-        self.format = "xml"
-        self.jurisdiction = "sfgov.org"
-```
-
-You could then use the `SF` class just as you would an instance of
-`Three`.
-
-```python
->>> SF().services()
-
->>> SF().requests()
 ```

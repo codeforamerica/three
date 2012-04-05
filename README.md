@@ -96,7 +96,7 @@ abstracted away.
 Subclassing
 -----------
 
-It's also possible to subclass `Three`.
+It's also possible to subclass the core `Three` class.
 
 ```python
 from three import Three

@@ -123,6 +123,9 @@ Settings
 
 These settings apply to the core `Three` class.
 
+A casual user of the Open311 API, by default, should not have to work
+with the `Three` class.
+
 ### API Key
 
 If you have an Open311 API key that you always intend to use, rather

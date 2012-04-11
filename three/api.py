@@ -36,6 +36,17 @@ def cities():
     return info
 
 
+def dev(endpoint, **kwargs):
+    """
+    Use an endpoint and any additional keyword arguments rather than one
+    of the pre-defined cities. Similar to the `city` function, but useful for
+    development.
+    """
+    kwargs['endpoint'] = endpoint
+    os.environ['OPEN311_CITY_INFO'] = dumps(kwargs)
+    return Three(**kwargs)
+
+
 def discovery(path=None, **kwargs):
     """
     Check a city's Open311 discovery endpoint.

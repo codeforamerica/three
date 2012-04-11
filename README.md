@@ -83,13 +83,13 @@ abstracted away.
 >>> three.city('macon')
 
 >>> # Let's grab requests between certain dates.
-... three.requests(start='03-10-2012', end='03-15-2012')
+... three.requests(start='03-10-2012', end='03-17-2012')
 
 >>> # But let's use the between parameter.
-... three.requests(between=['03-10-2012', '03-15-2012'])
+... three.requests(between=['03-10-2012', '03-17-2012'])
 
->>> # And, let's get all the requests! (Currently 95...)
-... three.requests(between=['03-10-2012', '03-15-2012'], count=100)
+>>> # And, let's get all the requests! (Currently 83...)
+... three.requests(between=['03-10-2012', '03-17-2012'], count=100)
 ```
 
 

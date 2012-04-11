@@ -41,6 +41,12 @@ servers = {
     'darwin': {
         'endpoint': 'http://seeclickfix.com/aus_darwin/open311/'
     },
+    'dc': {
+        'endpoint': 'http://seeclickfix.com/downtown_district-of-columbia/open311/'
+    },
+    'district of columbia': {
+        'endpoint': 'http://seeclickfix.com/downtown_district-of-columbia/open311/'
+    },
     'deleon': {
         'endpoint': 'http://seeclickfix.com/de-leon/open311/'
     },

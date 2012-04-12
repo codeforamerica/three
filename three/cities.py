@@ -42,10 +42,14 @@ servers = {
         'endpoint': 'http://seeclickfix.com/aus_darwin/open311/'
     },
     'dc': {
-        'endpoint': 'http://seeclickfix.com/downtown_district-of-columbia/open311/'
+        'endpoint': 'http://app.311.dc.gov/CWI/Open311/v2/',
+        'format': 'xml',
+        'jurisdiction': 'dc.gov'
     },
     'district of columbia': {
-        'endpoint': 'http://seeclickfix.com/downtown_district-of-columbia/open311/'
+        'endpoint': 'http://app.311.dc.gov/CWI/Open311/v2/',
+        'format': 'xml',
+        'jurisdiction': 'dc.gov'
     },
     'deleon': {
         'endpoint': 'http://seeclickfix.com/de-leon/open311/'

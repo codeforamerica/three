@@ -241,8 +241,21 @@ class TopLevelFunctions(unittest.TestCase):
         three.services()
         self.assertTrue(req.get.called)
 
+    def test_three_dev_functionality(self):
+        three.dev('http://api.city.gov')
+        environ = os.environ['OPEN311_CITY_INFO']
+        expected = '{"endpoint": "http://api.city.gov"}'
+        self.assertEqual(environ, expected)
+
+    def test_three_dev_keyword_arguments(self):
+        three.dev('http://api.city.gov', format='xml')
+        environ = os.environ['OPEN311_CITY_INFO']
+        expected = '{"endpoint": "http://api.city.gov", "format": "xml"}'
+        self.assertEqual(environ, expected)
+
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''
+        os.environ['OPEN311_CITY_INFO'] = ''
 
 
 if __name__ == '__main__':

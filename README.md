@@ -21,7 +21,7 @@ Alternatively, you can install via `pip`.
 At A Glance
 -----------
 
-`Three` was made to make the differences in Open311 server
+`Three` was made to make the differences in Open311 GeoReport
 implementations completely unknown to the end user. Interacting with
 service requests should be easy.
 

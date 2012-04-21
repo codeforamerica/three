@@ -6,7 +6,6 @@ that was built to be as absolute **user-friendly** and **easy-to-use as
 possible**. Many of the design decisions made will reflect these
 qualities.
 
-Testing.
 
 Installation
 ------------

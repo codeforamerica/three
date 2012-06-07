@@ -148,6 +148,17 @@ class ThreeRequest(unittest.TestCase):
         }
         req.get.assert_called_with(expected, params=params)
 
+    def test_shortened_between_keyword(self):
+        t = Three('api.city.gov')
+        dates = ('03-01-10', '03-05-10')
+        t.request('123', between=dates)
+        expected = 'https://api.city.gov/requests/123.json'
+        params = {
+            'start_date': '2010-03-01T00:00:00Z',
+            'end_date': '2010-03-05T00:00:00Z'
+        }
+        req.get.assert_called_with(expected, params=params)
+
 
 
 class ThreePost(unittest.TestCase):

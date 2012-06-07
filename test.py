@@ -4,6 +4,7 @@ Unit tests for the Three Open311 API wrapper.
 
 import os
 import unittest
+from datetime import date
 from mock import Mock, MagicMock
 
 import three
@@ -156,6 +157,17 @@ class ThreeRequest(unittest.TestCase):
         params = {
             'start_date': '2010-03-01T00:00:00Z',
             'end_date': '2010-03-05T00:00:00Z'
+        }
+        req.get.assert_called_with(expected, params=params)
+
+    def test_between_can_handle_datetimes(self):
+        t = Three('api.city.gov')
+        dates = (date(2010, 3, 10), date(2010, 3, 15))
+        t.request('123', between=dates)
+        expected = 'https://api.city.gov/requests/123.json'
+        params = {
+            'start_date': '2010-03-10T00:00:00Z',
+            'end_date': '2010-03-15T00:00:00Z'
         }
         req.get.assert_called_with(expected, params=params)
 

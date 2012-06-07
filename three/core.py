@@ -115,11 +115,12 @@ class Three(object):
 
     def _split_date(self, time):
         """Split apart a date string."""
-        month, day, year = [int(t) for t in re.split(r'-|/', time)]
-        if year < 100:
-            # Quick hack for dates > 2000.
-            year += 2000
-        time = date(year, month, day)
+        if isinstance(time, str):
+            month, day, year = [int(t) for t in re.split(r'-|/', time)]
+            if year < 100:
+                # Quick hack for dates > 2000.
+                year += 2000
+            time = date(year, month, day)
         return time.strftime('%Y-%m-%dT%H:%M:%SZ')
 
     def convert(self, content, conversion):

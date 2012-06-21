@@ -10,10 +10,7 @@ qualities.
 Installation
 ------------
 
-This is still a work in progress, but you can `git clone` this repo and
-run `python setup.py install` to check out the current progress.
-
-Alternatively, you can install via `pip`.
+The best way to install is through `pip`.
 
     pip install three
 

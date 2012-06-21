@@ -88,8 +88,14 @@ abstracted away.
 >>> # But let's use the between parameter.
 ... three.requests(between=['03-10-2012', '03-17-2012'])
 
->>> # And, let's get all the requests! (Currently 83...)
+>>> # And, let's get all the requests! (Or, as many as possible...)
 ... three.requests(between=['03-10-2012', '03-17-2012'], count=100)
+
+>>> # We could even get requests of different types between those days.
+>>> requests = []
+>>> dates = ['03-10-2012', '03-17-2012']
+>>> requests.extend(three.requests(between=dates, count=100))
+>>> requests.extend(three.requests(between=dates, count=100, status="closed"))
 ```
 
 

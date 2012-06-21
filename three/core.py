@@ -118,7 +118,7 @@ class Three(object):
         if isinstance(time, str):
             month, day, year = [int(t) for t in re.split(r'-|/', time)]
             if year < 100:
-                # Quick hack for dates > 2000.
+                # Quick hack for dates < 2000.
                 year += 2000
             time = date(year, month, day)
         return time.strftime('%Y-%m-%dT%H:%M:%SZ')

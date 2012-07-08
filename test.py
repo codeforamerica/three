@@ -139,6 +139,17 @@ class ThreeRequest(unittest.TestCase):
         }
         req.get.assert_called_with(expected, params=params)
 
+    def test_only_start_keyword_arguments(self):
+        t = Three('api.city.gov')
+        t.request('456', start='03-01-2010')
+        end_date = date.today().strftime('%Y-%m-%dT00:00:00Z')
+        expected = 'https://api.city.gov/requests/456.json'
+        params = {
+            'start_date': '2010-03-01T00:00:00Z',
+            'end_date': end_date
+        }
+        req.get.assert_called_with(expected, params=params)
+
     def test_between_keyword_argument(self):
         t = Three('api.city.gov')
         t.request('789', between=['03-01-2010', '03-05-2010'])

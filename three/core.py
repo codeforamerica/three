@@ -96,7 +96,11 @@ class Three(object):
         if 'count' in kwargs:
             kwargs['page_size'] = kwargs.pop('count')
         if 'start' in kwargs:
-            start, end = kwargs.pop('start'), kwargs.pop('end')
+            start = kwargs.pop('start')
+            if 'end' in kwargs:
+                end = kwargs.pop('end')
+            else:
+                end = date.today().strftime('%m-%d-%Y')
             start, end = self._format_dates(start, end)
             kwargs['start_date'] = start
             kwargs['end_date'] = end

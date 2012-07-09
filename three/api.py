@@ -3,9 +3,10 @@ Simple, top-level functions for working with the Open311 API.
 """
 
 import os
+from simplejson import dumps
+
 from .cities import find_info
 from .core import Three
-from simplejson import dumps
 
 
 def key(key=None):

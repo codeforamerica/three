@@ -35,6 +35,9 @@ servers = {
     'brookline': {
         'endpoint': 'http://spot.brooklinema.gov/open311/v2/'
     },
+    'chicago': {
+        'endpoint': 'http://311api.cityofchicago.org/open311/v2/'
+    },
     'corona': {
         'endpoint': 'http://seeclickfix.com/corona/open311/'
     },

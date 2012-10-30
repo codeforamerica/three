@@ -153,7 +153,8 @@ class Three(object):
         if url:
             data = requests.get(url).content
         elif self.discovery_url:
-            data = requests.get(self.discovery_url).content
+            # Spec calls for discovery always allowing JSON
+            data = requests.get(self.discovery_url).json
         else:
             data = self.get('discovery')
         return data

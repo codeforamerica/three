@@ -63,6 +63,10 @@ class ThreeDiscovery(unittest.TestCase):
         t.discovery('http://testing.gov/discovery.json')
         req.get.assert_called_with('http://testing.gov/discovery.json')
 
+    def test_city_discovery_keyword(self):
+        t = Three('api.chicago.city', discovery='http://chi.api.gov')
+        self.assertEquals(t.discovery_url, 'http://chi.api.gov')
+
 
 class ThreeServices(unittest.TestCase):
 

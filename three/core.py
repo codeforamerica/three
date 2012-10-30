@@ -57,6 +57,7 @@ class Three(object):
         self.format = keywords['format'] or 'json'
         self.jurisdiction = keywords['jurisdiction']
         self.proxy = keywords['proxy']
+        self.discovery_url = keywords['discovery'] or None
 
     def _configure_endpoint(self, endpoint):
         """Configure the endpoint with a schema and end slash."""
@@ -151,6 +152,8 @@ class Three(object):
         """
         if url:
             data = requests.get(url).content
+        elif self.discovery_url:
+            data = requests.get(self.discovery_url).content
         else:
             data = self.get('discovery')
         return data

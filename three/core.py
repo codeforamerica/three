@@ -153,8 +153,13 @@ class Three(object):
         if url:
             data = requests.get(url).content
         elif self.discovery_url:
-            # Spec calls for discovery always allowing JSON
-            data = requests.get(self.discovery_url).json
+            response = requests.get(self.discovery_url)
+            if self.format == 'xml':
+                # Because, SF doesn't follow the spec.
+                data = xml(response.text)
+            else:
+                # Spec calls for discovery always allowing JSON.
+                data = response.json
         else:
             data = self.get('discovery')
         return data

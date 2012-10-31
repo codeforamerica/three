@@ -70,11 +70,8 @@ service requests should be easy.
 {'baltimore': {'request': 'data'}}
 ```
 
-A `Three` class can also be imported and customized, but, for casual
-users, working with the `three` module should feel effortless. Any pain
-points (such as dealing with XML, required parameters, etc.) should be
-abstracted away.
-
+`Three` also aims to make working with dates and result counts easier, even
+though not all Open311 implementations support these features.
 
 ```python
 >>> import three
@@ -101,7 +98,10 @@ abstracted away.
 Subclassing
 -----------
 
-It's also possible to subclass the core `Three` class.
+A `Three` class can also be imported and customized, but, for casual
+users, working with the `three` module should feel effortless. Any pain
+points (such as dealing with XML, required parameters, etc.) should be
+abstracted away.
 
 ```python
 from three import Three

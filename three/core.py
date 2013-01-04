@@ -225,6 +225,8 @@ class Three(object):
     def _post_keywords(self, **kwargs):
         """Configure keyword arguments for Open311 POST requests."""
         code = kwargs.pop('code')
+        if self.jurisdiction and 'jurisdiction_id' not in kwargs:
+            kwargs['jurisdiction_id'] = self.jurisdiction
         if 'address' in kwargs:
             address = kwargs.pop('address')
             kwargs['address_string'] = address

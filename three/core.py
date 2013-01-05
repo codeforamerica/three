@@ -159,7 +159,7 @@ class Three(object):
                 data = xml(response.text)
             else:
                 # Spec calls for discovery always allowing JSON.
-                data = response.json
+                data = response.json()
         else:
             data = self.get('discovery')
         return data

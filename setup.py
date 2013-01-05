@@ -10,7 +10,7 @@ except ImportError:
 
 setup(
     name="three",
-    version="0.6.5",
+    version="0.6.6",
     url="http://github.com/codeforamerica/three",
     author="Zach Williams",
     author_email="hey@zachwill.com",
@@ -22,7 +22,7 @@ setup(
     install_requires=[
         'mock',
         'relaxml',
-        'requests',
+        'requests >= 1.0',
         'simplejson',
     ],
     license='MIT',

@@ -208,13 +208,19 @@ class Three(object):
 
         >>> t = Three('api.city.gov')
         >>> t.post('123', address='123 Any St', name='Zach Williams',
-        ...        phone='555-5555', description='My issue description'.)
+        ...        phone='555-5555', description='My issue description.',
+        ...        media=open('photo.png', 'rb'))
         {'successful': {'request': 'post'}}
         """
         kwargs['code'] = code
         kwargs = self._post_keywords(**kwargs)
+        media = kwargs.pop('media', None)
+        if media:
+            files = {'media': media}
+        else:
+            files = None
         url = self._create_path('requests')
-        self.request = requests.post(url, data=kwargs)
+        self.request = requests.post(url, data=kwargs, files=files)
         content = self.request.content
         if self.request.status_code == 200:
             conversion = True

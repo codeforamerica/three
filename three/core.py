@@ -220,9 +220,9 @@ class Three(object):
         else:
             files = None
         url = self._create_path('requests')
-        self.request = requests.post(url, data=kwargs, files=files)
-        content = self.request.content
-        if self.request.status_code == 200:
+        self.post_response = requests.post(url, data=kwargs, files=files)
+        content = self.post_response.content
+        if self.post_response.status_code == 200:
             conversion = True
         else:
             conversion = False

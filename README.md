@@ -108,6 +108,7 @@ from three import Three
 
 class SF(Three):
     def __init__(self):
+        super(SF, self).__init__()
         self.endpoint = "https://open311.sfgov.org/dev/V2/"
         self.format = "xml"
         self.jurisdiction = "sfgov.org"

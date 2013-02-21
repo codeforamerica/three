@@ -222,10 +222,10 @@ class Three(object):
         url = self._create_path('requests')
         self.post_response = requests.post(url, data=kwargs, files=files)
         content = self.post_response.content
-        if self.post_response.status_code == 200:
-            conversion = True
-        else:
+        if self.post_response.status_code >= 500:
             conversion = False
+        else:
+            conversion = True
         return self.convert(content, conversion)
 
     def _post_keywords(self, **kwargs):

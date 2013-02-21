@@ -202,7 +202,7 @@ class Three(object):
         data = self.get('requests', id, **kwargs)
         return data
 
-    def post(self, code='0', **kwargs):
+    def post(self, service_code='0', **kwargs):
         """
         Post a new Open311 request.
 
@@ -212,7 +212,7 @@ class Three(object):
         ...        media=open('photo.png', 'rb'))
         {'successful': {'request': 'post'}}
         """
-        kwargs['code'] = code
+        kwargs['service_code'] = service_code
         kwargs = self._post_keywords(**kwargs)
         media = kwargs.pop('media', None)
         if media:
@@ -230,7 +230,6 @@ class Three(object):
 
     def _post_keywords(self, **kwargs):
         """Configure keyword arguments for Open311 POST requests."""
-        code = kwargs.pop('code')
         if self.jurisdiction and 'jurisdiction_id' not in kwargs:
             kwargs['jurisdiction_id'] = self.jurisdiction
         if 'address' in kwargs:
@@ -242,8 +241,6 @@ class Three(object):
             kwargs['last_name'] = last
         if 'api_key' not in kwargs:
             kwargs['api_key'] = self.api_key
-        if 'service_code' not in kwargs:
-            kwargs['service_code'] = code
         return kwargs
 
     def token(self, id, **kwargs):

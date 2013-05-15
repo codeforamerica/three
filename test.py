@@ -5,7 +5,7 @@ Unit tests for the Three Open311 API wrapper.
 import os
 import unittest
 from datetime import date
-from mock import Mock, MagicMock
+from mock import Mock, MagicMock, patch
 
 import three
 from three import core, Three, CityNotFound
@@ -45,98 +45,100 @@ class ThreeInit(unittest.TestCase):
     def test_ssl_version(self):
         import ssl
         t = Three('foo.bar', ssl_version=ssl.PROTOCOL_TLSv1)
-        self.assertEqual(1, 2)
+        poolmanager = t.session.adapters['https://'].poolmanager
+        self.assertEqual(poolmanager.connection_pool_kw['ssl_version'],
+                         ssl.PROTOCOL_TLSv1)
 
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''
 
 
+@patch.object(req, 'Session', Mock())
 class ThreeDiscovery(unittest.TestCase):
 
     def setUp(self):
-        req.get = Mock()
         core.json = Mock()
 
     def test_default_discovery_method(self):
         t = Three('api.city.gov')
         t.discovery()
         expected = 'https://api.city.gov/discovery.json'
-        req.get.assert_called_with(expected, params={})
+        t.session.get.assert_called_with(expected, params={})
 
     def test_discovery_url_argument(self):
         t = Three('api.city.gov')
         t.discovery('http://testing.gov/discovery.json')
-        req.get.assert_called_with('http://testing.gov/discovery.json')
+        t.session.get.assert_called_with('http://testing.gov/discovery.json')
 
     def test_city_discovery_keyword(self):
         t = Three('api.chicago.city', discovery='http://chi.api.gov')
         self.assertEquals(t.discovery_url, 'http://chi.api.gov')
 
 
+@patch.object(req, 'Session', Mock())
 class ThreeServices(unittest.TestCase):
 
     def setUp(self):
-        req.get = Mock()
         core.json = Mock()
 
     def test_empty_services_call(self):
         t = Three('api.city.gov')
         t.services()
         expected = 'https://api.city.gov/services.json'
-        req.get.assert_called_with(expected, params={})
+        t.session.get.assert_called_with(expected, params={})
 
     def test_specific_service_code(self):
         t = Three('api.city.gov')
         t.services('123')
         expected = 'https://api.city.gov/services/123.json'
-        req.get.assert_called_with(expected, params={})
+        t.session.get.assert_called_with(expected, params={})
 
     def test_keyword_arguments_become_parameters(self):
         t = Three('api.city.gov')
         t.services('123', foo='bar')
         params = {'foo': 'bar'}
         expected = 'https://api.city.gov/services/123.json'
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
 
+@patch.object(req, 'Session', Mock())
 class ThreeRequests(unittest.TestCase):
 
     def setUp(self):
-        req.get = Mock()
         core.json = Mock()
 
     def test_empty_requests_call(self):
         t = Three('api.city.gov')
         t.requests()
         expected = 'https://api.city.gov/requests.json'
-        req.get.assert_called_with(expected, params={})
+        t.session.get.assert_called_with(expected, params={})
 
     def test_requests_call_with_service_code(self):
         t = Three('api.city.gov')
         t.requests('123')
         params = {'service_code': '123'}
         expected = 'https://api.city.gov/requests.json'
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
     def test_requests_with_additional_keyword_arguments(self):
         t = Three('api.city.gov')
         t.requests('123', status='open')
         params = {'service_code': '123', 'status': 'open'}
         expected = 'https://api.city.gov/requests.json'
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
 
+@patch.object(req, 'Session', Mock())
 class ThreeRequest(unittest.TestCase):
 
     def setUp(self):
-        req.get = Mock()
         core.json = Mock()
 
     def test_getting_a_specific_request(self):
         t = Three('api.city.gov')
         t.request('123')
         expected = 'https://api.city.gov/requests/123.json'
-        req.get.assert_called_with(expected, params={})
+        t.session.get.assert_called_with(expected, params={})
 
     def test_start_and_end_keyword_arguments(self):
         t = Three('api.city.gov')
@@ -146,7 +148,7 @@ class ThreeRequest(unittest.TestCase):
             'start_date': '2010-03-01T00:00:00Z',
             'end_date': '2010-03-05T00:00:00Z'
         }
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
     def test_only_start_keyword_arguments(self):
         t = Three('api.city.gov')
@@ -157,7 +159,7 @@ class ThreeRequest(unittest.TestCase):
             'start_date': '2010-03-01T00:00:00Z',
             'end_date': end_date
         }
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
     def test_between_keyword_argument(self):
         t = Three('api.city.gov')
@@ -167,7 +169,7 @@ class ThreeRequest(unittest.TestCase):
             'start_date': '2010-03-01T00:00:00Z',
             'end_date': '2010-03-05T00:00:00Z'
         }
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
     def test_shortened_between_keyword(self):
         t = Three('api.city.gov')
@@ -178,7 +180,7 @@ class ThreeRequest(unittest.TestCase):
             'start_date': '2010-03-01T00:00:00Z',
             'end_date': '2010-03-05T00:00:00Z'
         }
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
     def test_between_can_handle_datetimes(self):
         t = Three('api.city.gov')
@@ -189,14 +191,13 @@ class ThreeRequest(unittest.TestCase):
             'start_date': '2010-03-10T00:00:00Z',
             'end_date': '2010-03-15T00:00:00Z'
         }
-        req.get.assert_called_with(expected, params=params)
+        t.session.get.assert_called_with(expected, params=params)
 
 
-
+@patch.object(req, 'Session', Mock())
 class ThreePost(unittest.TestCase):
 
     def setUp(self):
-        req.post = Mock()
         core.json = Mock()
 
     def test_a_default_post(self):
@@ -206,7 +207,7 @@ class ThreePost(unittest.TestCase):
                   'service_code': '123', 'address_string': '85 2nd Street',
                   'api_key': 'my_api_key'}
         expected = 'https://api.city.gov/requests.json'
-        req.post.assert_called_with(expected, data=params, files=None)
+        t.session.post.assert_called_with(expected, data=params, files=None)
 
     def test_post_request_with_api_key_argument(self):
         t = Three('http://seeclicktest.com/open311/v2')
@@ -220,27 +221,33 @@ class ThreePost(unittest.TestCase):
             'api_key': 'my_api_key'
         }
         expected = 'http://seeclicktest.com/open311/v2/requests.json'
-        req.post.assert_called_with(expected, data=params, files=None)
+        t.session.post.assert_called_with(expected, data=params, files=None)
 
 
+@patch.object(req, 'Session', Mock())
 class ThreeToken(unittest.TestCase):
 
     def setUp(self):
-        req.get = Mock()
         core.json = Mock()
 
     def test_a_default_token_call(self):
         t = Three('api.city.gov')
         t.token('12345')
         expected = 'https://api.city.gov/tokens/12345.json'
-        req.get.assert_called_with(expected, params={})
+        t.session.get.assert_called_with(expected, params={})
 
 
 class TopLevelFunctions(unittest.TestCase):
 
     def setUp(self):
-        req.get = Mock()
+        self.session = Mock()
+        self.patch = patch.object(req, 'Session',
+                                  Mock(return_value=self.session))
+        self.patch.start()
         core.json = MagicMock()
+
+    def tearDown(self):
+        self.patch.stop()
 
     def test_three_api(self):
         three.key('my_api_key')
@@ -262,27 +269,27 @@ class TopLevelFunctions(unittest.TestCase):
     def test_three_discovery(self):
         three.city('new haven')
         three.discovery()
-        self.assertTrue(req.get.called)
+        self.assertTrue(self.session.get.called)
 
     def test_three_requests(self):
         three.city('macon')
         three.requests()
-        self.assertTrue(req.get.called)
+        self.assertTrue(self.session.get.called)
 
     def test_three_request_specific_report(self):
         three.city('macon')
         three.request('123abc')
-        self.assertTrue(req.get.called)
+        self.assertTrue(self.session.get.called)
 
     def test_three_services(self):
         three.city('sf')
         three.services()
-        self.assertTrue(req.get.called)
+        self.assertTrue(self.session.get.called)
 
     def test_three_token(self):
         three.token('123abc')
         three.services()
-        self.assertTrue(req.get.called)
+        self.assertTrue(self.session.get.called)
 
     def test_three_dev_functionality(self):
         three.dev('http://api.city.gov')

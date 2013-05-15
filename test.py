@@ -42,6 +42,11 @@ class ThreeInit(unittest.TestCase):
         t.reset()
         self.assertEqual(t.endpoint, 'https://foo.bar/')
 
+    def test_ssl_version(self):
+        import ssl
+        t = Three('foo.bar', ssl_version=ssl.PROTOCOL_TLSv1)
+        self.assertEqual(1, 2)
+
     def tearDown(self):
         os.environ['OPEN311_API_KEY'] = ''
 

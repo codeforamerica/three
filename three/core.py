@@ -13,6 +13,19 @@ from relaxml import xml
 import simplejson as json
 
 
+class SSLAdapter(requests.adapters.HTTPAdapter):
+    """An HTTPS Transport Adapter that uses an arbitrary SSL version."""
+    def __init__(self, ssl_version=None, **kwargs):
+        self.ssl_version = ssl_version
+        super(SSLAdapter, self).__init__(**kwargs)
+
+    def init_poolmanager(self, connections, maxsize):
+        self.poolmanager = requests.packages.urllib3.poolmanager.PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,
+            ssl_version=self.ssl_version)
+
+
 class Three(object):
     """The main class for interacting with the Open311 API."""
 
@@ -59,6 +72,12 @@ class Three(object):
         self.proxy = keywords['proxy']
         self.discovery_url = keywords['discovery'] or None
 
+        # Use a custom requests session and set the correct SSL version if
+        # specified.
+        self.session = requests.Session()
+        if 'ssl_version' in keywords:
+            self.session.mount('https://', SSLAdapter(keywords['ssl_version']))
+
     def _configure_endpoint(self, endpoint):
         """Configure the endpoint with a schema and end slash."""
         if not endpoint.startswith('http'):
@@ -85,7 +104,7 @@ class Three(object):
             conversion = True
         kwargs = self._get_keywords(**kwargs)
         url = self._create_path(*args)
-        request = requests.get(url, params=kwargs)
+        request = self.session.get(url, params=kwargs)
         content = request.content
         self._request = request
         return self.convert(content, conversion)
@@ -151,9 +170,9 @@ class Three(object):
         {'discovery': 'data'}
         """
         if url:
-            data = requests.get(url).content
+            data = self.session.get(url).content
         elif self.discovery_url:
-            response = requests.get(self.discovery_url)
+            response = self.session.get(self.discovery_url)
             if self.format == 'xml':
                 # Because, SF doesn't follow the spec.
                 data = xml(response.text)
@@ -220,7 +239,8 @@ class Three(object):
         else:
             files = None
         url = self._create_path('requests')
-        self.post_response = requests.post(url, data=kwargs, files=files)
+        self.post_response = self.session.post(url,
+                                               data=kwargs, files=files)
         content = self.post_response.content
         if self.post_response.status_code >= 500:
             conversion = False

@@ -169,6 +169,14 @@ use `XML` as your format of choice.
     True
 
 
+### SSL/TLS version
+
+With certain combinations of the client operating system and the server application, the SSL/TLS negotiation may fail.  Forcing Three to use TLS version 1.0 may help in these cases.
+
+    >>> import ssl
+    >>> t = Three('https://api.city.gov', ssl_version=ssl.PROTOCOL_TLSv1)
+
+
 Usage
 -----
 
@@ -179,12 +187,14 @@ settings with the `configure` method. You can also switch back to the
 orgininal settings with the `reset` method.
 
     >>> from three import Three
+    >>> import ssl
     >>> t = Three('api.city.gov', api_key='SECRET_KEY')
     >>> t.services()
     {'service': 'data'}
 
-    >>> t.configure('open311.sfgov.org/dev/V2/', format='xml'
-    ...             api_key='SF_OPEN311_API_KEY')
+    >>> t.configure('open311.sfgov.org/dev/V2/', format='xml',
+    ...             api_key='SF_OPEN311_API_KEY',
+    ...             ssl_version=ssl.PROTOCOL_TLSv1)
     >>> t.services()
     {'SF': {'service': 'data'}}
 

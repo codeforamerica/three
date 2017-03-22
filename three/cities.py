@@ -21,7 +21,7 @@ def find_info(name=None):
 
 servers = {
     'bainbridge': {
-        'endpoint': 'http://seeclickfix.com/bainbridge-island/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/38/'
     },
     'baltimore': {
         'endpoint': 'http://311.baltimorecity.gov/open311/v2/'
@@ -40,10 +40,10 @@ servers = {
         'discovery': 'http://311api.cityofchicago.org/open311/discovery.json'
     },
     'corona': {
-        'endpoint': 'http://seeclickfix.com/corona/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/70/'
     },
     'darwin': {
-        'endpoint': 'http://seeclickfix.com/aus_darwin/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/111/'
     },
     'dc': {
         'endpoint': 'http://app.311.dc.gov/CWI/Open311/v2/',
@@ -55,59 +55,50 @@ servers = {
         'format': 'xml',
         'jurisdiction': 'dc.gov'
     },
-    'deleon': {
-        'endpoint': 'http://seeclickfix.com/de-leon/open311/'
-    },
-    'dunwoody': {
-        'endpoint': 'http://seeclickfix.com/dunwoody_ga/open311/'
+     'dunwoody': {
+        'endpoint': 'https://seeclickfix.com/open311/v2/112/'
     },
     'fontana': {
-        'endpoint': 'http://seeclickfix.com/fontana/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/159/'
     },
     'grand rapids': {
         'endpoint': 'http://grcity.spotreporters.com/open311/v2/'
     },
     'hillsborough': {
-        'endpoint': 'http://seeclickfix.com/hillsborough/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/45/'
     },
     'howard county': {
-        'endpoint': 'http://seeclickfix.com/md_howard-county/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/520/'
     },
     'huntsville': {
-        'endpoint': 'http://seeclickfix.com/huntsville/open311/'
-    },
-    'macon': {
-        'endpoint': 'http://seeclickfix.com/macon/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/145/'
     },
     'manor': {
-        'endpoint': 'http://seeclickfix.com/manor/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/33/'
     },
     'new haven': {
-        'endpoint': 'http://seeclickfix.com/new-haven/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/29/'
     },
     'newark': {
-        'endpoint': 'http://seeclickfix.com/newark_2/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/809/'
     },
     'newberg': {
-        'endpoint': 'http://seeclickfix.com/newberg/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/122/'
     },
     'newnan': {
-        'endpoint': 'http://seeclickfix.com/newnan/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/161/'
     },
     'olathe': {
-        'endpoint': 'http://seeclickfix.com/olathe/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/106/'
     },
     'raleigh': {
-        'endpoint': 'http://seeclickfix.com/raleigh/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/149/'
     },
     'richmond': {
-        'endpoint': 'http://seeclickfix.com/richmond/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/102/'
     },
     'roosevelt island': {
-        'endpoint': 'http://seeclickfix.com/roosevelt-island/open311/'
-    },
-    'russell springs': {
-        'endpoint': 'http://seeclickfix.com/russell-springs/open311/'
+        'endpoint': 'https://seeclickfix.com/open311/v2/115/'
     },
     'san francisco': {
         'endpoint': 'https://open311.sfgov.org/V2/',
@@ -122,8 +113,5 @@ servers = {
     'toronto': {
         'endpoint': 'https://secure.toronto.ca/webwizard/ws/',
         'jurisdiction': 'toronto.ca'
-    },
-    'tucson': {
-        'endpoint': 'http://seeclickfix.com/tucson/open311/'
-    },
+    }
 }

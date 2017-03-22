@@ -10,7 +10,7 @@ class CityNotFound(Exception):
 def find_info(name=None):
     """Find the needed city server information."""
     if not name:
-        return servers.keys()
+        return list(servers.keys()) 
     name = name.lower()
     if name in servers:
         info = servers[name]

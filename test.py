@@ -3,11 +3,13 @@ Unit tests for the Three Open311 API wrapper.
 """
 
 import os
+import json
 import unittest
 from datetime import date
 from mock import Mock, MagicMock, patch
 
 import three
+import responses
 from three import core, Three, CityNotFound
 from three.core import requests as req
 
@@ -72,7 +74,7 @@ class ThreeDiscovery(unittest.TestCase):
 
     def test_city_discovery_keyword(self):
         t = Three('api.chicago.city', discovery='http://chi.api.gov')
-        self.assertEquals(t.discovery_url, 'http://chi.api.gov')
+        self.assertEqual(t.discovery_url, 'http://chi.api.gov')
 
 
 @patch.object(req, 'Session', Mock())
@@ -193,7 +195,7 @@ class ThreeRequest(unittest.TestCase):
         }
         t.session.get.assert_called_with(expected, params=params)
 
-
+@responses.activate
 @patch.object(req, 'Session', Mock())
 class ThreePost(unittest.TestCase):
 
@@ -201,13 +203,24 @@ class ThreePost(unittest.TestCase):
         core.json = Mock()
 
     def test_a_default_post(self):
+        responses.add(responses.POST, 'https://api.city.gov/requests.json',
+                  body="""[
+                  {
+                    "service_request_id":293944,
+                    "service_notice":"The City will inspect and require the responsible party to correct within 24 hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code",
+                    "account_id":null
+                    }
+                  ]""",
+                  status=201,
+                  content_type='application/json')
+
         t = Three('api.city.gov', api_key='my_api_key')
-        t.post('123', name='Zach Williams', address='85 2nd Street')
+        resp = t.post('123', name='Zach Williams', address='85 2nd Street')
         params = {'first_name': 'Zach', 'last_name': 'Williams',
                   'service_code': '123', 'address_string': '85 2nd Street',
                   'api_key': 'my_api_key'}
-        expected = 'https://api.city.gov/requests.json'
-        t.session.post.assert_called_with(expected, data=params, files=None)
+
+        assert resp.status_code == 201
 
     def test_post_request_with_api_key_argument(self):
         t = Three('http://seeclicktest.com/open311/v2')
@@ -299,8 +312,8 @@ class TopLevelFunctions(unittest.TestCase):
 
     def test_three_dev_keyword_arguments(self):
         three.dev('http://api.city.gov', format='xml')
-        environ = os.environ['OPEN311_CITY_INFO']
-        expected = '{"endpoint": "http://api.city.gov", "format": "xml"}'
+        environ = json.loads(os.environ['OPEN311_CITY_INFO'])
+        expected = {"endpoint": "http://api.city.gov", "format": "xml"}
         self.assertEqual(environ, expected)
 
     def tearDown(self):

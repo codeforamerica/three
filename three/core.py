@@ -6,11 +6,18 @@ import os
 import re
 from collections import defaultdict
 from datetime import date
-from itertools import ifilter
+
 
 import requests
 from relaxml import xml
 import simplejson as json
+
+try:
+    # Python 2
+    from future_builtins import filter
+except ImportError:
+    # Python 3
+    pass
 
 
 class SSLAdapter(requests.adapters.HTTPAdapter):
@@ -19,10 +26,11 @@ class SSLAdapter(requests.adapters.HTTPAdapter):
         self.ssl_version = ssl_version
         super(SSLAdapter, self).__init__(**kwargs)
 
-    def init_poolmanager(self, connections, maxsize):
+    def init_poolmanager(self, connections, maxsize, block):
         self.poolmanager = requests.packages.urllib3.poolmanager.PoolManager(
             num_pools=connections,
             maxsize=maxsize,
+            block=block,
             ssl_version=self.ssl_version)
 
 
@@ -92,7 +100,7 @@ class Three(object):
 
     def _create_path(self, *args):
         """Create URL path for endpoint and args."""
-        args = ifilter(None, args)
+        args = filter(None, args)
         path = self.endpoint + '/'.join(args) + '.%s' % (self.format)
         return path
 
@@ -155,7 +163,7 @@ class Three(object):
             data = json.loads(content)
         elif self.format == 'xml':
             content = xml(content)
-            first = content.keys()[0]
+            first = list(content.keys())[0]
             data = content[first]
         else:
             data = content
